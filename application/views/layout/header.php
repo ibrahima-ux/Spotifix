@@ -2,7 +2,7 @@
 <html lang="en" class="has-navbar-fixed-top">
 	<head>
 		<meta charset="UTF-8" />
-		<title>MUSIC APP</title>
+		<title>Spotifix</title>
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
@@ -15,7 +15,7 @@
 		<main class='container'>
 			<nav>
   <ul>
-    <li><strong>Music APP</strong></li>
+    <li><h2><strong>Spotifix</strong></h2></li>
   </ul>
   <ul>
   <li><?=anchor('albums','Albums');?></li>

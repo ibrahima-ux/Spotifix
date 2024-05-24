@@ -1,7 +1,7 @@
 section.list
 {
 	display : flex;
-	justify-content : space-between;
+	justify-content: space-evenly;
 	flex-wrap:wrap;
 }
 section.list > div 

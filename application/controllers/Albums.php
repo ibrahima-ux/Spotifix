@@ -16,6 +16,10 @@ class Albums extends CI_Controller {
 		$this->load->view('albums_list',['albums'=>$albums]);
 		$this->load->view('layout/footer');
 	}
-
+	public function view($id){
+		$this->load->view('layout/header');
+		echo($id);
+		$this->load->view('layout/footer');
+	}
 }
 
