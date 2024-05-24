@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Albums extends CI_Controller {
+class Musique extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
@@ -10,17 +10,16 @@ class Albums extends CI_Controller {
 		$this->load->helper('url');
 
 	}
-	public function index(){
+	public function index($id){
 		$albums = $this->model_music->getAlbums();
 		$this->load->view('layout/header');
-		$this->load->view('albums_list',['albums'=>$albums]);
+		$this->load->view('music_page',['albums'=>$albums]);
 		$this->load->view('layout/footer');
 	}
 	public function view($id){
-		$albums = $this->model_music->getSingleAlbums($id);
-		$musics = $this->model_music->getAlbumMusics($id);
+		$musics = $this->model_music->getSingleMusics($id);
 		$this->load->view('layout/header');
-		$this->load->view('albums_page',['albums'=>$albums, 'musics'=>$musics]);
+		$this->load->view('music_page',['musics'=>$musics]);
 		$this->load->view('layout/footer');
 	}
 }
