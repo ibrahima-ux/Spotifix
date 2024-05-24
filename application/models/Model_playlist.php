@@ -17,17 +17,4 @@ class Model_music extends CI_Model {
 		);
 	return $query->result();
 	}
-	public function getAlbumsOfArtist($id){
-		$query = $this->db->query(
-			"SELECT album.name,album.id,year,artist.name as artistName, genre.name as genreName,jpeg 
-			FROM album 
-			JOIN artist ON album.artistid = artist.id
-			JOIN genre ON genre.id = album.genreid
-			JOIN cover ON cover.id = album.coverid
-			where artist.id = $id
-			ORDER BY year
-			"
-		);
-	return $query->result();
-	}
 }
