@@ -4,13 +4,13 @@
 		echo "<div><article>";
 		echo "<header class='short-text'>";
 		echo "$music->song";
-		echo "</header>";
-		echo "<p>Album : $music->album</p>";
-		echo "<p>Artist : $music->artist</p>";
-		echo "<p>Disque N° : $music->diskNumber</p>";
-		echo "<p>Piste N° : $music->number</p>";
-		echo "<p>Durée : $music->duration</p>";
-		echo "</article></div>";
+		echo "</header> <ul>";
+		echo "<li>Album : $music->album</li>";
+		echo "<li>Artist : $music->artist</li>";
+		echo "<li>Disque N° : $music->diskNumber</li>";
+		echo "<li>liiste N° : $music->number</li>";
+		echo "<li>Durée : $music->duration</li>";
+		echo "</ul></article></div>";
 	}
 ?>
 
