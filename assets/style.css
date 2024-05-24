@@ -18,3 +18,10 @@ section.list img {
 	text-overflow: ellipsis;
 }
 
+article>p.margin {
+	margin: 0px 0px 5px 20px;
+}
+
+a.buttons { 
+	margin: 0px 0px 0px 30px;
+}

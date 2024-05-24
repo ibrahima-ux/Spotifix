@@ -4,13 +4,19 @@
 		echo "<div><article>";
 		echo "<header class='short-text'>";
 		echo "$music->song";
-		echo "</header> <ul>";
-		echo "<li>Album : $music->album</li>";
-		echo "<li>Artist : $music->artist</li>";
-		echo "<li>Disque N° : $music->diskNumber</li>";
-		echo "<li>liiste N° : $music->number</li>";
-		echo "<li>Durée : $music->duration</li>";
-		echo "</ul></article></div>";
+		echo "</header>";
+		echo "<p class='margin'>Album : "; echo anchor("albums/view/{$music->album_id}","{$music->album}"); echo"</p>";
+		echo "<p class='margin'>Artist : "; echo anchor("artistes/view/{$music->artist_id}","{$music->artist}"); echo"</p>";
+		echo "<p class='margin'>Disque N° : $music->diskNumber</p>";
+		echo "<p class='margin'>Piste N° : $music->number</p>";
+
+		$durer = $music->duration / 60;
+
+		echo "<p class='margin'>Durée : $durer minutes </p>";
+		echo "</article></div>";
 	}
+	echo anchor("playlist/add/$music->ID",'Ajouter a la Playlist',['role'=>'button', 'class' => 'buttons']);
 ?>
+
+
 
