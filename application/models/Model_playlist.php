@@ -5,14 +5,10 @@ class Model_music extends CI_Model {
 		$this->load->database();
 	}
 
-	public function connect($user, $mdp){
+	public function connect($infos){
 		$query = $this->db->query(
-			"SELECT album.name,album.id,year,artist.name as artistName, genre.name as genreName,jpeg 
-			FROM album 
-			JOIN artist ON album.artistid = artist.id
-			JOIN genre ON genre.id = album.genreid
-			JOIN cover ON cover.id = album.coverid
-			ORDER BY year
+			"SELECT * FROM utilisateur
+			WHERE login = $infos['login'] AND password = $infos['password']
 			"
 		);
 	return $query->result();

@@ -18,6 +18,3 @@
 	}
 	echo anchor("playlist/add/$music->ID",'Ajouter a la Playlist',['role'=>'button', 'class' => 'buttons']);
 ?>
-
-
-
