@@ -7,10 +7,11 @@
 		echo "</header>";
 		echo "<p class='margin'>Album : "; echo anchor("albums/view/{$music->album_id}","{$music->album}"); echo"</p>";
 		echo "<p class='margin'>Artist : "; echo anchor("artistes/view/{$music->artist_id}","{$music->artist}"); echo"</p>";
+		echo "<p class='margin'>Genre : $music->genre</p>";
 		echo "<p class='margin'>Disque N° : $music->diskNumber</p>";
 		echo "<p class='margin'>Piste N° : $music->number</p>";
 
-		$durer = $music->duration / 60;
+		$durer = round($music->duration / 60, 2);
 
 		echo "<p class='margin'>Durée : $durer minutes </p>";
 		echo "</article></div>";

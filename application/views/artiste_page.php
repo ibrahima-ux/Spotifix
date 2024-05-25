@@ -12,7 +12,7 @@
 		echo anchor("albums/view/{$album->id}","{$album->name}");
 		echo "</header>";
 		echo '<img src="data:image/jpeg;base64,'.base64_encode($album->jpeg).'" />';
-		echo "<footer class='short-text'>{$album->year} - {$album->artistName}</footer>
+		echo "<footer class='short-text'>{$album->year} - {$album->artistName} - {$album->genreName}</footer>
 		  </article></div>";
 	}
 ?>

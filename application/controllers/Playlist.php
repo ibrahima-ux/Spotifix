@@ -11,10 +11,30 @@ class Playlist extends CI_Controller {
 
 	}
 	public function index(){
-		$albums = $this->model_music->getAlbums();
-		$this->load->view('layout/header');
-		$this->load->view('albums_list',['albums'=>$albums]);
-		$this->load->view('layout/footer');
+		if ($_POST != null) {
+			$infos = filter_input_array(INPUT_POST,FILTER_DEFAULT,true);
+			session_start($infos);
+		}
+
+		if (isset($_SESSION)) {
+			$playlists = $this->model_music->getPlaylists();
+			$this->load->view('layout/header');
+			$this->load->view('playlist_list',['playlist'=>$playlists]);
+			$this->load->view('layout/footer');
+		}else {
+			$this->load->view('layout/header');
+			$this->load->view('user_connect');
+			$this->load->view('layout/footer');
+		}
+		
+	}
+
+	public function connection(){
+		if (empty($query)){
+			$this->load->view('layout/header');
+			$this->load->view('user_connect', ['message'=>"Bad login or password, this account may not exist"]);
+			$this->load->view('layout/footer');
+		}
 	}
 
 }
