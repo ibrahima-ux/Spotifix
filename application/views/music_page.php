@@ -16,5 +16,5 @@
 		echo "<p class='margin'>Durée : $durer minutes </p>";
 		echo "</article></div>";
 	}
-	echo anchor("playlist/add/$music->ID",'Ajouter a la Playlist',['role'=>'button', 'class' => 'buttons']);
+	echo anchor("playlist/add/$music->ID",'Ajouter a la Playlist',['role'=>'button', 'class' => 'addbuttons']);
 ?>

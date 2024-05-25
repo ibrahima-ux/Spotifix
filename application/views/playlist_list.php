@@ -1,14 +1,29 @@
 <h5>Albums list</h5>
-<section class="list">
-<?php
-foreach($albums as $album){
-	echo "<div><article>";
-	echo "<header class='short-text'>";
-	echo anchor("albums/view/{$album->id}","{$album->name}");
-	echo "</header>";
-	echo '<img src="data:image/jpeg;base64,'.base64_encode($album->jpeg).'" />';
-	echo "<footer class='short-text'>{$album->year} - {$album->artistName}</footer>
-	  </article></div>";
-}
-?>
-</section>
+<div>
+	<article>
+		<header class='short-text'>
+			<nav class="centered">
+				<h3><?=$_SESSION['user']?></h3>
+				<ul>
+					<li><?=anchor('playlist/new','Nouvelle playlist',['role'=> 'button']);?></li>
+					<li><?=anchor('playlist/deconnection','Déconnection',['role'=> 'button', 'class'=> 'badbuttons']);?></li>
+				</ul>
+			</nav>
+			
+		</header>
+	
+
+
+		<section class="list">
+		<?php
+		foreach($playlists as $playlist){
+			echo "<div><article>";
+			echo "<header class='short-text'>";
+			echo anchor("playlist/view/{$playlist->id}","{$playlist->name}");
+			echo "</header>";
+			echo "</article></div>";
+		}
+		?>
+		</section>
+	</article>
+</div>

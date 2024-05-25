@@ -1,15 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inscription</title>
-</head>
-<body>
-    <h5>Inscription</h5>
-    <section>
-
-        <form action="process_registration.php" method="post">
+<h5>Inscription</h5>
+<section>
+    <div><article>
+        <form action="" method="post">
             <div>
                 <label for="username">Identifiant:</label>
                 <input type="text" id="username" name="username" required>
@@ -26,6 +18,8 @@
                 <button type="submit">Créer un compte</button>
             </div>
         </form>
-    </section>
-</body>
-</html>
+        <p><?=anchor('playlist/connection','Vous avez déjà un compte ?');?></p>
+        <error class="errorMessage"><?=$message?></error>
+    </article></div>
+</section>
+

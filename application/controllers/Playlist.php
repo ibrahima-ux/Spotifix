@@ -5,43 +5,80 @@ class Playlist extends CI_Controller {
 
 	public function __construct(){
 		parent::__construct();
+		$this->load->model('model_user');
 		$this->load->model('model_playlist');
 		$this->load->helper('html');
 		$this->load->helper('url');
 
 	}
 	public function index(){
-		if ($_POST != null) {
-			$infos = filter_input_array(INPUT_POST,FILTER_DEFAULT,true);
-			session_start($infos);
+		if (!isset($_SESSION)){
+			session_start();
 		}
-
-		if (isset($_SESSION)) {
+		if (isset($_SESSION['id'])) {
 			$playlists = $this->model_playlist->getPlaylists();
 			$this->load->view('layout/header');
-			$this->load->view('playlist_list',['playlist'=>$playlists]);
+			$this->load->view('playlist_list',['playlists'=>$playlists]);
 			$this->load->view('layout/footer');
 		}else {
-			$this->load->view('layout/header');
-			$this->load->view('user_connect', ['message'=>""]);
-			$this->load->view('layout/footer');
+			$this->connection();
 		}
-		
 	}
 
 	public function connection(){
-		$infos = filter_input_array(INPUT_POST, FILTER_DEFAULT, true);
-		$query = $this->model_playlist->connect($infos);
-		if (empty($query)){
+
+		if ($_POST == null) {
 			$this->load->view('layout/header');
-			$this->load->view('user_connect', ['message'=>"This account may not exist"]);
+			$this->load->view('user_connect', ['message'=>""]);
 			$this->load->view('layout/footer');
 		}else{
-			$playlists = $this->model_playlist->getPlaylists();
-			$this->load->view('layout/header');
-			$this->load->view('playlist_list',['playlist'=>$playlists]);
-			$this->load->view('layout/footer');
+			$infos = filter_input_array(INPUT_POST, FILTER_DEFAULT, true);
+			$query = $this->model_user->connect($infos);
+			if (empty($query)){
+				$this->load->view('layout/header');
+				$this->load->view('user_connect', ['message'=>"ERROR : this account dose not exist.  Please try another username or password"]);
+				$this->load->view('layout/footer');
+			}else{
+				foreach ($query as $user) {
+				}
+				$_SESSION['id'] = $user->id;
+				$_SESSION['user'] = $user->user;
+				$this->index();
+			}
 		}
 	}
 
+	public function deconnection(){
+		session_start();
+		unset($_SESSION['id']);
+		unset($_SESSION['user']);
+		session_destroy();
+		$this->index();
+	}
+
+	public function register(){
+
+		if ($_POST == null) {
+			$this->load->view('layout/header');
+			$this->load->view('user_create', ['message'=>""]);
+			$this->load->view('layout/footer');
+		}else{
+			$infos = filter_input_array(INPUT_POST, FILTER_DEFAULT, true);
+			if ($infos['password'] == $infos['confirm_password']){
+				$this->model_user->add($infos);
+				$query = $this->model_user->connect($infos);
+				if (empty($query)){
+					$this->load->view('layout/header');
+					$this->load->view('user_create', ['message'=>"ERROR : this account already exist"]);
+					$this->load->view('layout/footer');
+				}else{
+					$this->connection();
+				}
+			}else{
+				$this->load->view('layout/header');
+				$this->load->view('user_create', ['message'=>"ERROR : Les champs 'password' et 'confirm_password' doivent être les mêmes"]);
+				$this->load->view('layout/footer');
+			}
+		}
+	}
 }

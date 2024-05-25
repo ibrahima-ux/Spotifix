@@ -1,14 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
-</head>
-<body>
-    <h5>Connexion</h5>
-    <section>
-        <form action="traiterdonnee.php" method="post">
+<h5>Connexion</h5>
+<section>
+    <div><article>
+        <form action="" method="post">
             <div>
                 <label for="username">Identifiant:</label>
                 <input type="text" id="username" name="username" required>
@@ -21,6 +14,7 @@
                 <button type="submit">Connexion</button>
             </div>
         </form>
-    </section>
-</body>
-</html>
+        <p><?=anchor('playlist/register','Nouvel utilisateur ?');?></p>
+        <error class="errorMessage"><?=$message?></error>
+    </article></div>
+</section>
