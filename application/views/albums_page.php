@@ -14,12 +14,9 @@
 	foreach($musics as $music){
 		echo "<li>";
 		echo "<header class='short-text'>";
-		echo "$music->number : ";
 		echo anchor("musique/view/{$music->id}","{$music->name}");
-		echo "</header></article></li>";
+		echo "</header></li>";
 	}
-	echo "</ul>";
-	
 ?>
-<ul></ul>
+	</ul>
 </section>

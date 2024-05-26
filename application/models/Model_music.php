@@ -38,6 +38,27 @@ class Model_music extends CI_Model {
 		);
 	return $query->result();
 	}
+
+	public function getMusicsOfArtist($id, $sorted = "titre", $by = "asc"){
+
+		if ($sorted == 'titre') {
+			$sorted = 'song.name';
+		}elseif ($sorted == 'albums') {
+			$sorted = 'album.name';
+		}
+
+		$query = $this->db->query(
+			"SELECT track.id as id, song.name as name, album.name as album 
+			FROM track 
+			JOIN song on songId = song.id
+			JOIN album ON albumId = album.id
+			JOIN artist ON artistId = artist.id
+			WHERE artist.id = $id  
+			ORDER BY $sorted $by
+			"
+		);
+	return $query->result();
+	}
 	public function getSingleAlbums($id){
 		$query = $this->db->query(
 			"SELECT album.name,album.id,year,artist.name as artistName, genre.name as genreName,jpeg 
