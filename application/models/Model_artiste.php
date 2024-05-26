@@ -5,11 +5,11 @@ class Model_artiste extends CI_Model {
 		$this->load->database();
 	}
 
-	public function getArtiste(){
+	public function getArtiste($by){
 		$query = $this->db->query(
 			"SELECT DISTINCT name,id
 			FROM artist
-			ORDER BY name ASC
+			ORDER BY name $by
 			"
 		);
 	return $query->result();

@@ -35,9 +35,14 @@ error.errorMessage {
 	color: rgb(239 72 72);
 }
 
-nav.centered {
+nav.centered, nav ul.centered {
 	align-items: center;
 }
+
+nav ul.noncentered {
+	align-items: normal !important;
+}
+
 nav.centered>h3 {
 	margin-block: 0;
 	margin-left: 18px;

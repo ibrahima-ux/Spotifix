@@ -1,8 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+	
 class Playlist extends CI_Controller {
-
+	public $sorted = 'year';
+	public $by = 'asc';
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('model_user');
@@ -10,6 +11,8 @@ class Playlist extends CI_Controller {
 		$this->load->helper('html');
 		$this->load->helper('url');
 
+		$this->sorted = $this->input->get('sorted') ?? 'year';
+		$this->by = $this->input->get('by') ?? 'asc';
 	}
 	public function index(){
 		if (!isset($_SESSION)){
@@ -18,7 +21,7 @@ class Playlist extends CI_Controller {
 		if (isset($_SESSION['id'])) {
 			$playlists = $this->model_playlist->getPlaylists();
 			$this->load->view('layout/header');
-			$this->load->view('playlist_list',['playlists'=>$playlists]);
+			$this->load->view('playlist_list',['playlists'=>$playlists, 'sorted'=>$this->sorted, 'by'=>$this->by]);
 			$this->load->view('layout/footer');
 		}else {
 			$this->connection();
@@ -69,7 +72,7 @@ class Playlist extends CI_Controller {
 				$query = $this->model_user->connect($infos);
 				if (empty($query)){
 					$this->load->view('layout/header');
-					$this->load->view('user_create', ['message'=>"ERROR : this account already exist"]);
+					$this->load->view('user_create', ['message'=>"ERREUR : ce login ou ce mot de passe existe déjà"]);
 					$this->load->view('layout/footer');
 				}else{
 					$this->connection();

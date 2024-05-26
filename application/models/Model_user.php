@@ -8,17 +8,35 @@ class Model_user extends CI_Model {
 	public function connect($infos){
 		$username = $infos['username'];
 		$password = $infos['password'];
+
 		$query = $this->db->query(
 			"SELECT * FROM utilisateur
-			WHERE user = '$username' AND mdp = '$password'
+			WHERE user = '$username'
 			"
-		);
-	return $query->result();
+		); 
+		foreach ( $query->result() as $q) {
+			if (password_verify("$password", $q->mdp )) {
+				$queryret = $this->db->query(
+					"SELECT id, user FROM utilisateur
+					WHERE user = '$username'
+					"
+				);
+			}else {
+				$queryret = $this->db->query(
+					"SELECT id, user FROM utilisateur
+					WHERE FALSE
+					"
+				);
+			}
+			break;
+		}
+		
+	return $queryret->result();
 	}
 
 	public function add($infos){
 		$username = $infos['username'];
-		$password = $infos['password'];
+		$password = password_hash($infos['password'], PASSWORD_DEFAULT);
 		$query = $this->connect($infos);
 		if ($query == null) {
 			$this->db->query(

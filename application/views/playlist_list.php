@@ -1,4 +1,4 @@
-<h5>Albums list</h5>
+<h5>Playlists de </h5>
 <div>
 	<article>
 		<header class='short-text'>
@@ -13,7 +13,25 @@
 		</header>
 	
 
-
+		<nav>
+			<h5></h5>
+			<ul style="align-items: normal;">
+			<?php
+					$CI =& get_instance();
+					if ($by == 'asc') {
+						$bynext = "desc";
+						$arrow = "up.png";
+					}else {
+						$bynext = "asc";
+						$arrow = "down.png";
+					}
+				?>
+				<li><?=anchor("playlist/?sorted=year&by=$by",'Year',['role'=>($sorted=='year'?'button':'')]);?></li>
+				<li><?=anchor("playlist/?sorted=nom&by=$by",'Nom',['role'=>($sorted=='nom'?'button':'')]);?></li>
+				<li><?=anchor("playlist/?sorted=genre&by=$by",'Genre',['role'=>($sorted=='genre'?'button':'')]);?></li>
+				<li><?=anchor("playlist/?sorted=$sorted&by=$bynext", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
+			</ul>
+		</nav>
 		<section class="list">
 		<?php
 		foreach($playlists as $playlist){
