@@ -14,6 +14,11 @@ class Model_user extends CI_Model {
 			WHERE user = '$username'
 			"
 		); 
+		$queryret = $this->db->query(
+			"SELECT id, user FROM utilisateur
+			WHERE FALSE
+			"
+		);
 		foreach ( $query->result() as $q) {
 			if (password_verify("$password", $q->mdp )) {
 				$queryret = $this->db->query(
