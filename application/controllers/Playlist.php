@@ -2,7 +2,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 	
 class Playlist extends CI_Controller {
-	public $sorted = 'year';
+	public $sorted = 'date';
 	public $by = 'asc';
 	public function __construct(){
 		parent::__construct();
@@ -11,7 +11,7 @@ class Playlist extends CI_Controller {
 		$this->load->helper('html');
 		$this->load->helper('url');
 
-		$this->sorted = $this->input->get('sorted') ?? 'year';
+		$this->sorted = $this->input->get('sorted') ?? 'date';
 		$this->by = $this->input->get('by') ?? 'asc';
 	}
 	public function index(){
@@ -19,7 +19,7 @@ class Playlist extends CI_Controller {
 			session_start();
 		}
 		if (isset($_SESSION['id'])) {
-			$playlists = $this->model_playlist->getPlaylists();
+			$playlists = $this->model_playlist->getPlaylists($this->sorted, $this->by, $this->input->post('search'));
 			$this->load->view('layout/header');
 			$this->load->view('playlist_list',['playlists'=>$playlists, 'sorted'=>$this->sorted, 'by'=>$this->by]);
 			$this->load->view('layout/footer');
@@ -83,5 +83,19 @@ class Playlist extends CI_Controller {
 				$this->load->view('layout/footer');
 			}
 		}
+	}
+
+	public function new(){
+		session_start();
+		$user = $_SESSION['user'];
+		$this->load->view('layout/header');
+		$this->load->view('new_playlist', ['user'=>"$user"]);
+		$this->load->view('layout/footer');
+	}
+
+	public function newPlaylist(){
+		session_start();
+		$name = filter_input(INPUT_POST, "name",FILTER_DEFAULT);
+		$this->model_playlist->newPlaylist($name);
 	}
 }

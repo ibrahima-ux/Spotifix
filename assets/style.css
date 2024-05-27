@@ -4,6 +4,7 @@ section.list
 	justify-content: space-evenly;
 	flex-wrap:wrap;
 }
+
 section.list > div 
 {
 width : 30%;
@@ -56,4 +57,9 @@ nav>form.recherche{
 nav>form.recherche>*{
 	margin-right : 5px;
 	margin-left : 5px;
+}
+
+ul>li>article.playlist{
+	background-color: var(--pico-card-sectioning-background-color);
+	border-color: var(--pico-card-sectioning-background-color);
 }
