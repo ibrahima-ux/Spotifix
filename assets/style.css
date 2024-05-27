@@ -47,3 +47,13 @@ nav.centered>h3 {
 	margin-block: 0;
 	margin-left: 18px;
 }
+
+nav>form.recherche{
+	display: flex;
+    flex-wrap: nowrap;
+}
+
+nav>form.recherche>*{
+	margin-right : 5px;
+	margin-left : 5px;
+}

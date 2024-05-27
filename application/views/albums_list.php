@@ -1,11 +1,19 @@
+<h5>Albums list</h5>
 <nav>
-    <h5>Albums list</h5>
+    <!-- Ajout d'un formulaire de recherche pour les playlists -->
+    <?php
+        $message_recherche = 'par année';
+        if ($sorted == "nom") {
+            $message_recherche = 'par nom';
+        }elseif ($sorted == "genre") {
+            $message_recherche = 'par genre';
+        }
+    ?>
+    <form action="" method="post" class='recherche'>
+        <input type="text" name="query" placeholder="<?=$message_recherche?>" required>
+        <button type="submit">Recherche</button>
+    </form>
     <ul style="align-items: normal; float: left;">
-        <!-- Ajout d'un formulaire de recherche pour les playlists -->
-        <form action="playlists/search" method="get" style="float: left; margin-right: 20px;">
-            <input type="text" name="query" placeholder="Rechercher une playlist" required>
-            <button type="submit">Recherche</button>
-        </form>
         <?php
             $CI =& get_instance();
             if ($by == 'asc') {
