@@ -6,7 +6,10 @@
 		echo "$album->name";
 		echo "</header>";
 		echo '<img src="data:image/jpeg;base64,'.base64_encode($album->jpeg).'" />';
-		echo "<footer class='short-text'>{$album->year} - {$album->artistName} - {$album->genreName}</footer>
+		echo "<footer class='short-text'>";
+		echo "<p>Année - {$album->year}<p>";
+		echo "<p>Artrist - ".anchor("artistes/view/{$album->artist_id}","{$album->artistName}")."</p>";
+		echo "<p>Genre - {$album->genreName}<p></footer>
 		  </article></div>";
 	}
 	echo "<h5>Tracks</h5>";

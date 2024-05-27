@@ -5,7 +5,10 @@ class Model_music extends CI_Model {
 		$this->load->database();
 	}
 
-	public function getAlbums($sorted, $by){
+	public function getAlbums($sorted, $by, $search){
+
+		$message = $search ?? '';
+
 
 		if ($sorted == 'genre') {
 			$sorted = 'genre.name';
@@ -20,6 +23,7 @@ class Model_music extends CI_Model {
 			JOIN artist ON album.artistid = artist.id
 			JOIN genre ON genre.id = album.genreid
 			JOIN cover ON cover.id = album.coverid
+			WHERE $sorted LIKE '%$message%'
 			ORDER BY $sorted $by
 			"
 		);
@@ -59,9 +63,9 @@ class Model_music extends CI_Model {
 		);
 	return $query->result();
 	}
-	public function getSingleAlbums($id){
+	public function getSingleAlbum($id){
 		$query = $this->db->query(
-			"SELECT album.name,album.id,year,artist.name as artistName, genre.name as genreName,jpeg 
+			"SELECT album.name,album.id,year,artist.name as artistName, artist.id as artist_id, genre.name as genreName,jpeg 
 			FROM album 
 			JOIN artist ON album.artistid = artist.id
 			JOIN genre ON genre.id = album.genreid
@@ -96,7 +100,9 @@ class Model_music extends CI_Model {
 	return $query->result();
 	}
 
-	public function getMusics($sorted = 'nom', $by = 'asc'){
+	public function getMusics($sorted = 'nom', $by = 'asc', $search = ''){
+
+		$message = $search ?? '';
 
 		if ($sorted == 'genre') {
 			$sorted = 'genre.name';
@@ -113,6 +119,7 @@ class Model_music extends CI_Model {
 			JOIN album ON track.albumId = album.id
 			JOIN artist ON album.artistId = artist.id
 			JOIN genre ON album.genreId = genre.id
+			WHERE $sorted LIKE '%$message%'
 			ORDER BY $sorted $by
 			"
 		);

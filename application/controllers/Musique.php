@@ -14,7 +14,7 @@ class Musique extends CI_Controller {
 		$this->by = $this->input->get('by') ?? 'asc';
 	}
 	public function index(){
-		$musics = $this->model_music->getMusics($this->sorted, $this->by);
+		$musics = $this->model_music->getMusics($this->sorted, $this->by, $this->input->post('search'));
 		$this->load->view('layout/header');
 		$this->load->view('music_list',['musics'=>$musics, 'sorted'=>$this->sorted, 'by'=>$this->by]);
 		$this->load->view('layout/footer');

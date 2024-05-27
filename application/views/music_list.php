@@ -1,6 +1,18 @@
-
+<h5>Musique list</h5>
 <nav>
-	<h5>Musique list</h5>
+	<!-- Ajout d'un formulaire de recherche pour les playlists -->
+	<?php
+        $message_recherche = 'par nom';
+        if ($sorted == "artistes") {
+            $message_recherche = 'par artiste';
+        }elseif ($sorted == "genre") {
+            $message_recherche = 'par genre';
+        }
+    ?>
+    <form action="" method="post" class='recherche'>
+        <input type="text" name="search" placeholder="<?=$message_recherche?>">
+        <button type="submit">Recherche</button>
+    </form>
 	<ul style="align-items: normal;">
 	<?php
 			$CI =& get_instance();

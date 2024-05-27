@@ -5,10 +5,12 @@ class Model_artiste extends CI_Model {
 		$this->load->database();
 	}
 
-	public function getArtiste($by){
+	public function getArtists($by,$search){
+		$message = $search ?? '';
 		$query = $this->db->query(
 			"SELECT DISTINCT name,id
 			FROM artist
+			WHERE name LIKE '%$message%'
 			ORDER BY name $by
 			"
 		);

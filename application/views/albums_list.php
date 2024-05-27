@@ -10,7 +10,7 @@
         }
     ?>
     <form action="" method="post" class='recherche'>
-        <input type="text" name="query" placeholder="<?=$message_recherche?>" required>
+        <input type="text" name="search" placeholder="<?=$message_recherche?>">
         <button type="submit">Recherche</button>
     </form>
     <ul style="align-items: normal; float: left;">
