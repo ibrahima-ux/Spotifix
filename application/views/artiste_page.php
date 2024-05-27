@@ -19,7 +19,7 @@
 ?>
 </section>
 <nav>
-	<h5>Tracks</h5>
+	<h5 id='tracks'>Tracks</h5>
 	<ul style="align-items: normal;">
 	<?php
 			$CI =& get_instance();
@@ -31,9 +31,9 @@
 				$arrow = "down.png";
 			}
 		?>
-		<li><?=anchor("artistes/view/$id/?sorted=titre&by=$by",'Titre',['role'=>($sorted=='titre'?'button':'')]);?></li>
-		<li><?=anchor("artistes/view/$id/?sorted=album&by=$by",'Album',['role'=>($sorted=='album'?'button':'')]);?></li>
-		<li><?=anchor("artistes/view/$id/?sorted=$sorted&by=$bynext", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
+		<li><?=anchor("artistes/view/$id/?sorted=titre&by=$by#tracks",'Titre',['role'=>($sorted=='titre'?'button':'')]);?></li>
+		<li><?=anchor("artistes/view/$id/?sorted=album&by=$by#tracks",'Album',['role'=>($sorted=='album'?'button':'')]);?></li>
+		<li><?=anchor("artistes/view/$id/?sorted=$sorted&by=$bynext#tracks", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
 	</ul>
 </nav>
 <section class="list">
