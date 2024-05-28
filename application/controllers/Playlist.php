@@ -71,29 +71,29 @@ class Playlist extends CI_Controller {
 
 	public function register(){
 		
-			if ($_POST == null) {
-				$this->load->view('layout/header');
-				$this->load->view('user_create', ['message'=>""]);
-				$this->load->view('layout/footer');
-			}else{
-				$infos = filter_input_array(INPUT_POST, FILTER_DEFAULT, true);
-				if ($infos['password'] == $infos['confirm_password']){
-					$this->model_user->add($infos);
-					$query = $this->model_user->connect($infos);
-					if (empty($query)){
-						$this->load->view('layout/header');
-						$this->load->view('user_create', ['message'=>"ERREUR : ce login ou ce mot de passe existe déjà"]);
-						$this->load->view('layout/footer');
-					}else{
-						$this->setSession($infos);
-						$this->index();
-					}
-				}else{
+		if ($_POST == null) {
+			$this->load->view('layout/header');
+			$this->load->view('user_create', ['message'=>""]);
+			$this->load->view('layout/footer');
+		}else{
+			$infos = filter_input_array(INPUT_POST, FILTER_DEFAULT, true);
+			if ($infos['password'] == $infos['confirm_password']){
+				$this->model_user->add($infos);
+				$query = $this->model_user->connect($infos);
+				if (empty($query)){
 					$this->load->view('layout/header');
-					$this->load->view('user_create', ['message'=>"ERROR : Les champs 'password' et 'confirm_password' doivent être les mêmes"]);
+					$this->load->view('user_create', ['message'=>"ERREUR : ce login ou ce mot de passe existe déjà"]);
 					$this->load->view('layout/footer');
+				}else{
+					$this->setSession($infos);
+					$this->index();
 				}
+			}else{
+				$this->load->view('layout/header');
+				$this->load->view('user_create', ['message'=>"ERROR : Les champs 'password' et 'confirm_password' doivent être les mêmes"]);
+				$this->load->view('layout/footer');
 			}
+		}
 		
 	}
 
@@ -117,7 +117,7 @@ class Playlist extends CI_Controller {
 		$this->index();
 	}
 
-	public function view($id){
+	public function view($id, $message = ''){
 		session_start();
 		$playlists = $this->model_playlist->getSinglePlaylists($id);
 		foreach ($playlists as $playlist){}
@@ -125,5 +125,12 @@ class Playlist extends CI_Controller {
 		$this->load->view('layout/header');
 		$this->load->view('playlist_page',['id'=>$id, 'playlist'=>$playlist, 'songs'=>$tracks, 'sorted'=>$this->sorted, 'by'=>$this->by]);
 		$this->load->view('layout/footer');
+	}
+
+	public function deletePlaylist($id){
+		if (($playlist = $this->model_playlist->getSinglePlaylists($id)) != null) {
+			$this->model_playlist->deletePlaylist($id);
+		}
+		$this->index();
 	}
 }

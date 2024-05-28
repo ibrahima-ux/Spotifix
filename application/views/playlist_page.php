@@ -1,8 +1,14 @@
+<?php
+	$CI =& get_instance();
+?>
 <h5>Playlist</h5>
 <div>
 	<article>
 		<header class='short-text'>
-			<h3 class="titre"><?=$playlist->nom?></h3>
+			<nav class="centered">
+				<h3 class="titre"><?=$playlist->nom?></h3>
+				<?=anchor("playlist/deletePlaylist/$playlist->id","<img src='{$CI->config->base_url("assets/trash.png")}' alt='del' width='30px' />",['role'=>'button', 'class'=>'badbuttons']);?>
+			</nav>
 		</header>
 		<nav>
 			<?php
@@ -17,7 +23,6 @@
 			</form>
 			<ul style="align-items: normal;">
 			<?php
-					$CI =& get_instance();
 					if ($by == 'asc') {
 						$bynext = "desc";
 						$arrow = "up.png";

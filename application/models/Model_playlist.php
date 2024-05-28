@@ -64,4 +64,13 @@ class Model_playlist extends CI_Model {
 		);
 	return $query->result();
 	}
+
+	public function deletePlaylist($id){
+
+		$query = $this->db->query(
+			"DELETE FROM playlists
+			WHERE id = $id 
+			"
+		);
+	}
 }
