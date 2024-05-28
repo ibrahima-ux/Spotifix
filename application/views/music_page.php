@@ -18,3 +18,5 @@
 	}
 	echo anchor("playlist/add/$music->ID",'Ajouter a la Playlist',['role'=>'button', 'class' => 'addbuttons']);
 ?>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/i8n1gSw_o_8"></iframe>
