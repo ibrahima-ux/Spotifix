@@ -16,7 +16,5 @@
 		echo "<p class='margin'>Durée : $durer minutes </p>";
 		echo "</article></div>";
 	}
-	echo anchor("playlist/add/$music->ID",'Ajouter a la Playlist',['role'=>'button', 'class' => 'addbuttons']);
+	echo anchor("playlist/addTrack/?track=$music->track_id",'Ajouter a la Playlist',['role'=>'button', 'class' => 'addbuttons']);
 ?>
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/i8n1gSw_o_8"></iframe>

@@ -63,8 +63,6 @@ class Playlist extends CI_Controller {
 
 	public function deconnection(){
 		session_start();
-		unset($_SESSION['id']);
-		unset($_SESSION['user']);
 		session_destroy();
 		$this->index();
 	}
@@ -128,9 +126,39 @@ class Playlist extends CI_Controller {
 	}
 
 	public function deletePlaylist($id){
-		if (($playlist = $this->model_playlist->getSinglePlaylists($id)) != null) {
+		if ($this->model_playlist->getSinglePlaylists($id) != null) {
 			$this->model_playlist->deletePlaylist($id);
 		}
 		$this->index();
+	}
+
+	public function deleteConfirm($id){
+		$this->load->view('layout/header');
+		$this->load->view('delete_playlist_confirm',['id'=>$id,]);
+		$this->load->view('layout/footer');
+	}
+
+	public function addTrack(){
+		session_start();
+		$track = $this->input->get('track');
+		session_write_close();
+		if($this->input->get('selected')){
+			$playlist = $this->input->get('playlist');
+			$this->model_playlist->addTrack($track, $playlist);
+			$this->view($playlist);
+		}else {
+			$playlists = $this->model_playlist->getPlaylists($this->sorted, $this->by, '');
+			$this->load->view('layout/header');
+			$this->load->view('playlist_selector',['id'=>$track,'playlists'=>$playlists]);
+			$this->load->view('layout/footer');
+		}
+	}
+
+	public function deleteSongFromPlaylist(){
+		$track = $this->input->get('track');
+		$playlist = $this->input->get('playlist');
+		$this->model_playlist->deleteSongFromPlaylist($track, $playlist);
+		
+		$this->view($playlist);
 	}
 }

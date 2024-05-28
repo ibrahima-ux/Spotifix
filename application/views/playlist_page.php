@@ -7,7 +7,9 @@
 		<header class='short-text'>
 			<nav class="centered">
 				<h3 class="titre"><?=$playlist->nom?></h3>
-				<?=anchor("playlist/deletePlaylist/$playlist->id","<img src='{$CI->config->base_url("assets/trash.png")}' alt='del' width='30px' />",['role'=>'button', 'class'=>'badbuttons']);?>
+				<?=anchor("playlist/deleteConfirm/$playlist->id",
+							"<img src='{$CI->config->base_url("assets/trash.png")}' alt='del' width='30px' />",
+							['role'=>'button', 'class'=>'badbuttons', 'style'=>'padding: 10px;']);?>
 			</nav>
 		</header>
 		<nav>
@@ -33,7 +35,9 @@
 				?>
 				<li><?=anchor("playlist/?sorted=date&by=$by",'Date',['role'=>($sorted=='date'?'button':'')]);?></li>
 				<li><?=anchor("playlist/?sorted=nom&by=$by",'Nom',['role'=>($sorted=='nom'?'button':'')]);?></li>
-				<li><?=anchor("playlist/?sorted=$sorted&by=$bynext", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
+				<li><?=anchor("playlist/?sorted=$sorted&by=$bynext", 
+								"<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",
+								['role'=> 'button', 'class'=>'flipflop']);?></li>
 			</ul>
 		</nav>
 		<section class="list">
@@ -41,7 +45,9 @@
 			foreach($songs as $song){
 				echo "<article>";
 				echo "<header style='margin-bottom: -50px'>";
-				echo "{$song->date} - ".anchor("playlist/view/{$song->trackid}","{$playlist->nom}");
+				echo "---".anchor("musique/view/{$song->id}","{$song->name}")."    ";
+				echo anchor("playlist/deleteSongFromPlaylist/?playlist=$playlist->id&track=$song->id",
+							"<img src='{$CI->config->base_url("assets/trash_red.png")}' alt='del' width='25px' />",);
 				echo "</header>";
 				echo "</article>";
 			}

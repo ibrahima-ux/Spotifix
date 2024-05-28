@@ -69,3 +69,7 @@ h3.titre{
 	margin-block-start: 0;
     margin-block-end: 0;
 }
+
+.question{
+	justify-content: space-around;
+}
