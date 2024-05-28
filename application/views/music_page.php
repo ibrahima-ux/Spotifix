@@ -3,7 +3,7 @@
 	foreach($musics as $music){
 		echo "<div><article>";
 		echo "<header class='short-text'>";
-		echo "$music->song";
+		echo "<h3 class='titre'>$music->song</h3>";
 		echo "</header>";
 		echo "<p class='margin'>Album : "; echo anchor("albums/view/{$music->album_id}","{$music->album}"); echo"</p>";
 		echo "<p class='margin'>Artist : "; echo anchor("artistes/view/{$music->artist_id}","{$music->artist}"); echo"</p>";

@@ -5,6 +5,20 @@ class Model_user extends CI_Model {
 		$this->load->database();
 	}
 
+	public function isUser($id){
+		$query = $this->db->query(
+			"SELECT * FROM utilisateur
+			WHERE id = '$id'
+			"
+		); 
+
+		if ($query->result() == null) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
 	public function connect($infos){
 		$username = $infos['username'];
 		$password = $infos['password'];

@@ -2,7 +2,7 @@
 <?php
 	foreach ($artiste as $art) {
 		echo "<div><article>";
-		echo "<h3>$art->name</h3>";
+		echo "<h3 class='titre'>$art->name</h3>";
 		echo "</article></div>";
 	}
 

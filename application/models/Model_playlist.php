@@ -29,6 +29,7 @@ class Model_playlist extends CI_Model {
 	}
 
 	public function newPlaylist($name){
+		array($_SESSION);
 		$id = $_SESSION['id'];
 		$time = date('Y-m-d');
 
@@ -37,5 +38,30 @@ class Model_playlist extends CI_Model {
 			VALUES ($id, '$name', '$time')
 			"
 		);
+	}
+
+	public function playlists_tracks($id){
+
+		$query = $this->db->query(
+			"SELECT track.id as id, song.name as name
+			FROM track_in_playlist
+			JOIN track ON track.id = track_in_playlist.trackId
+			JOIN song ON song.id = track.songId
+			WHERE track_in_playlist.playlistId = 1
+			ORDER BY song.name asc;
+			"
+		);
+
+	return $query->result();
+	}
+
+	public function getSinglePlaylists($id){
+
+		$query = $this->db->query(
+			"SELECT * FROM playlists
+			WHERE id = $id 
+			"
+		);
+	return $query->result();
 	}
 }

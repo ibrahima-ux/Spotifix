@@ -18,11 +18,16 @@ class Playlist extends CI_Controller {
 		if (!isset($_SESSION)){
 			session_start();
 		}
-		if (isset($_SESSION['id'])) {
-			$playlists = $this->model_playlist->getPlaylists($this->sorted, $this->by, $this->input->post('search'));
-			$this->load->view('layout/header');
-			$this->load->view('playlist_list',['playlists'=>$playlists, 'sorted'=>$this->sorted, 'by'=>$this->by]);
-			$this->load->view('layout/footer');
+		
+		if (isset($_SESSION['id']) ) {
+			if ($this->model_user->isUser($_SESSION['id']) != null) {
+				$playlists = $this->model_playlist->getPlaylists($this->sorted, $this->by, $this->input->post('search'));
+				$this->load->view('layout/header');
+				$this->load->view('playlist_list',['playlists'=>$playlists, 'sorted'=>$this->sorted, 'by'=>$this->by]);
+				$this->load->view('layout/footer');
+			}else {
+				$this->connection();
+			}
 		}else {
 			$this->connection();
 		}
@@ -42,13 +47,18 @@ class Playlist extends CI_Controller {
 				$this->load->view('user_connect', ['message'=>"ERROR : this account dose not exist.  Please try another username or password"]);
 				$this->load->view('layout/footer');
 			}else{
-				foreach ($query as $user) {
-				}
-				$_SESSION['id'] = $user->id;
-				$_SESSION['user'] = $user->user;
+				$this->setSession($infos);
 				$this->index();
 			}
 		}
+	}
+
+	public function setSession($infos){
+		$query = $this->model_user->connect($infos);
+		foreach ($query as $user) {
+		}
+		$_SESSION['id'] = $user->id;
+		$_SESSION['user'] = $user->user;
 	}
 
 	public function deconnection(){
@@ -60,42 +70,60 @@ class Playlist extends CI_Controller {
 	}
 
 	public function register(){
-
-		if ($_POST == null) {
-			$this->load->view('layout/header');
-			$this->load->view('user_create', ['message'=>""]);
-			$this->load->view('layout/footer');
-		}else{
-			$infos = filter_input_array(INPUT_POST, FILTER_DEFAULT, true);
-			if ($infos['password'] == $infos['confirm_password']){
-				$this->model_user->add($infos);
-				$query = $this->model_user->connect($infos);
-				if (empty($query)){
-					$this->load->view('layout/header');
-					$this->load->view('user_create', ['message'=>"ERREUR : ce login ou ce mot de passe existe déjà"]);
-					$this->load->view('layout/footer');
-				}else{
-					$this->connection();
-				}
-			}else{
+		
+			if ($_POST == null) {
 				$this->load->view('layout/header');
-				$this->load->view('user_create', ['message'=>"ERROR : Les champs 'password' et 'confirm_password' doivent être les mêmes"]);
+				$this->load->view('user_create', ['message'=>""]);
 				$this->load->view('layout/footer');
+			}else{
+				$infos = filter_input_array(INPUT_POST, FILTER_DEFAULT, true);
+				if ($infos['password'] == $infos['confirm_password']){
+					$this->model_user->add($infos);
+					$query = $this->model_user->connect($infos);
+					if (empty($query)){
+						$this->load->view('layout/header');
+						$this->load->view('user_create', ['message'=>"ERREUR : ce login ou ce mot de passe existe déjà"]);
+						$this->load->view('layout/footer');
+					}else{
+						$this->setSession($infos);
+						$this->index();
+					}
+				}else{
+					$this->load->view('layout/header');
+					$this->load->view('user_create', ['message'=>"ERROR : Les champs 'password' et 'confirm_password' doivent être les mêmes"]);
+					$this->load->view('layout/footer');
+				}
 			}
-		}
+		
 	}
 
 	public function new(){
 		session_start();
-		$user = $_SESSION['user'];
-		$this->load->view('layout/header');
-		$this->load->view('new_playlist', ['user'=>"$user"]);
-		$this->load->view('layout/footer');
+		if ($this->model_user->isUser($_SESSION['id']) != null) {
+			$this->load->view('layout/header');
+			$this->load->view('new_playlist');
+			$this->load->view('layout/footer');
+		}else {
+			$this->connection();
+		}
 	}
 
 	public function newPlaylist(){
 		session_start();
-		$name = filter_input(INPUT_POST, "name",FILTER_DEFAULT);
-		$this->model_playlist->newPlaylist($name);
+		if ($this->model_user->isUser($_SESSION['id']) != null) {
+			$name = filter_input(INPUT_POST, "name",FILTER_DEFAULT);
+			$this->model_playlist->newPlaylist($name);
+		}
+		$this->index();
+	}
+
+	public function view($id){
+		session_start();
+		$playlists = $this->model_playlist->getSinglePlaylists($id);
+		foreach ($playlists as $playlist){}
+		$tracks = $this->model_playlist->playlists_tracks($id);
+		$this->load->view('layout/header');
+		$this->load->view('playlist_page',['id'=>$id, 'playlist'=>$playlist, 'songs'=>$tracks, 'sorted'=>$this->sorted, 'by'=>$this->by]);
+		$this->load->view('layout/footer');
 	}
 }

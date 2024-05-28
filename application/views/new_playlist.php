@@ -3,7 +3,7 @@
 	<article>
 		<header class='short-text'>
 			<nav class="centered">
-				<h3><?=$user?></h3>
+				<h3><?=$_SESSION['user']?></h3>
 			</nav>
 		</header>
 		<form action="newPlaylist" method="post">
