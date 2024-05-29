@@ -1,11 +1,11 @@
 <h5>Artist</h5>
 <?php
 	foreach($albums as $album){
-		echo "<div><article>";
-		echo "<header class='short-text'>";
-		echo "$album->name";
-		echo "</header>";
-		echo '<img src="data:image/jpeg;base64,'.base64_encode($album->jpeg).'" />';
+		echo "<div><article><header class='short-text'><nav class='centered'>";
+		echo "<h3 class='titre'>$album->name<h3>";
+		echo anchor("playlist/addAlbumsTracks/$album->id",'Ajouter a la Playlist',['role'=>'button', 'class' => 'addbuttons']);
+		echo "</nav></header>";
+		echo '<img src="data:image/jpeg;base64,'.base64_encode($album->jpeg).'"'.' width="30%" />';
 		echo "<footer class='short-text'>";
 		echo "<p>Année - {$album->year}<p>";
 		echo "<p>Artrist - ".anchor("artistes/view/{$album->artist_id}","{$album->artistName}")."</p>";

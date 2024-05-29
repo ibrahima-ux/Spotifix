@@ -40,7 +40,7 @@
 			foreach($songs as $song){
 				echo "<article>";
 				echo "<header style='margin-bottom: -50px'>";
-				echo "---".anchor("musique/view/{$song->id}","{$song->name}")."    ";
+				echo anchor("musique/view/{$song->id}","{$song->name}",['style'=>'margin-right: 15px;']);
 				echo anchor("playlist/deleteSongFromPlaylist/?playlist=$playlist->id&track=$song->id",
 							"<img src='{$CI->config->base_url("assets/trash_red.png")}' alt='del' width='25px' />",);
 				echo "</header>";

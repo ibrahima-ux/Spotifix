@@ -7,6 +7,7 @@ class Playlist extends CI_Controller {
 	public function __construct(){
 		parent::__construct();
 		$this->load->model('model_user');
+		$this->load->model('model_music');
 		$this->load->model('model_playlist');
 		$this->load->helper('html');
 		$this->load->helper('url');
@@ -146,18 +147,17 @@ class Playlist extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
-	public function addTrack(){
+	public function addTrack($id){
 		session_start();
-		$track = $this->input->get('track');
-		session_write_close();
+		$track = $id;
 		if($this->input->get('selected')){
 			$playlist = $this->input->get('playlist');
 			$this->model_playlist->addTrack($track, $playlist);
-			$this->view($playlist);
+			redirect("playlist/view/$playlist");
 		}else {
 			$playlists = $this->model_playlist->getPlaylists($this->sorted, $this->by, '');
 			$this->load->view('layout/header');
-			$this->load->view('playlist_selector',['id'=>$track,'playlists'=>$playlists]);
+			$this->load->view('playlist_selector',['id'=>$track,'playlists'=>$playlists, 'addWhat'=>'addTrack']);
 			$this->load->view('layout/footer');
 		}
 		session_write_close();
@@ -168,21 +168,44 @@ class Playlist extends CI_Controller {
 		$playlist = $this->input->get('playlist');
 		$this->model_playlist->deleteSongFromPlaylist($track, $playlist);
 		
-		$this->view($playlist);
+		redirect("playlist/view/$playlist");
 	}
 
 	public function addAlbumsTracks($id){
 		session_start();
 		if($this->input->get('selected')){
 			$playlist = $this->input->get('playlist');
-			$this->model_playlist->addTrack($track, $playlist);
-			$this->view($playlist);
+			$musiques = $this->model_music->getAlbumMusics($id);
+			foreach ($musiques as $musique) {
+				$this->model_playlist->addTrack($musique->id, $playlist);
+			}
+			session_write_close();
+			redirect("playlist/view/$playlist");
 		}else {
-			$playlists = $this->model_playlist->getPlaylists($this->sorted, $this->by, '');
+			session_write_close();
+			$playlists = $this->model_playlist->getPlaylists('', '', '');
 			$this->load->view('layout/header');
-			$this->load->view('playlist_selector',['id'=>$track,'playlists'=>$playlists]);
+			$this->load->view('playlist_selector',['id'=>$id,'playlists'=>$playlists, 'addWhat'=>'addAlbumsTracks']);
 			$this->load->view('layout/footer');
 		}
-		session_write_close();
+	}
+
+	public function addArtistsTracks($id){
+		session_start();
+		if($this->input->get('selected')){
+			$playlist = $this->input->get('playlist');
+			$musiques = $this->model_music->getMusicsOfArtist($id);
+			foreach ($musiques as $musique) {
+				$this->model_playlist->addTrack($musique->id, $playlist);
+			}
+			session_write_close();
+			redirect("playlist/view/$playlist");
+		}else {
+			session_write_close();
+			$playlists = $this->model_playlist->getPlaylists('', '', '');
+			$this->load->view('layout/header');
+			$this->load->view('playlist_selector',['id'=>$id,'playlists'=>$playlists, 'addWhat'=>'addArtistsTracks']);
+			$this->load->view('layout/footer');
+		}
 	}
 }

@@ -13,7 +13,7 @@
 		<nav style="justify-content: space-around;">
 			<?php 
 				foreach ($playlists as $playlist) {
-					echo anchor("playlist/addTrack/?selected=true&track=$id&playlist=$playlist->id","$playlist->nom",['role'=>'button', 'style'=>$CSS ]);
+					echo anchor("playlist/$addWhat/$id?selected=true&playlist=$playlist->id","$playlist->nom",['role'=>'button', 'style'=>$CSS ]);
 				}
 			?>
 		</nav>
