@@ -64,7 +64,7 @@ class Playlist extends CI_Controller {
 	public function deconnection(){
 		session_start();
 		session_destroy();
-		$this->index();
+		$this->connection();
 	}
 
 	public function register(){
