@@ -26,9 +26,11 @@ class Playlist extends CI_Controller {
 				$this->load->view('playlist_list',['playlists'=>$playlists, 'sorted'=>$this->sorted, 'by'=>$this->by]);
 				$this->load->view('layout/footer');
 			}else {
+				session_write_close();
 				$this->connection();
 			}
 		}else {
+			session_write_close();
 			$this->connection();
 		}
 	}
@@ -60,6 +62,7 @@ class Playlist extends CI_Controller {
 		}
 		$_SESSION['id'] = $user->id;
 		$_SESSION['user'] = $user->user;
+		session_write_close();
 	}
 
 	public function deconnection(){
@@ -103,6 +106,7 @@ class Playlist extends CI_Controller {
 			$this->load->view('new_playlist');
 			$this->load->view('layout/footer');
 		}else {
+			session_write_close();
 			$this->connection();
 		}
 	}
@@ -113,6 +117,7 @@ class Playlist extends CI_Controller {
 			$name = filter_input(INPUT_POST, "name",FILTER_DEFAULT);
 			$this->model_playlist->newPlaylist($name);
 		}
+		session_write_close();
 		$this->index();
 	}
 
@@ -125,6 +130,7 @@ class Playlist extends CI_Controller {
 		$this->load->view('layout/header');
 		$this->load->view('playlist_page',['id'=>$id, 'playlist'=>$playlist, 'songs'=>$tracks, 'sorted'=>$this->sorted, 'by'=>$this->by]);
 		$this->load->view('layout/footer');
+		session_write_close();
 	}
 
 	public function deletePlaylist($id){
@@ -154,6 +160,7 @@ class Playlist extends CI_Controller {
 			$this->load->view('playlist_selector',['id'=>$track,'playlists'=>$playlists]);
 			$this->load->view('layout/footer');
 		}
+		session_write_close();
 	}
 
 	public function deleteSongFromPlaylist(){
@@ -162,5 +169,20 @@ class Playlist extends CI_Controller {
 		$this->model_playlist->deleteSongFromPlaylist($track, $playlist);
 		
 		$this->view($playlist);
+	}
+
+	public function addAlbumsTracks($id){
+		session_start();
+		if($this->input->get('selected')){
+			$playlist = $this->input->get('playlist');
+			$this->model_playlist->addTrack($track, $playlist);
+			$this->view($playlist);
+		}else {
+			$playlists = $this->model_playlist->getPlaylists($this->sorted, $this->by, '');
+			$this->load->view('layout/header');
+			$this->load->view('playlist_selector',['id'=>$track,'playlists'=>$playlists]);
+			$this->load->view('layout/footer');
+		}
+		session_write_close();
 	}
 }
