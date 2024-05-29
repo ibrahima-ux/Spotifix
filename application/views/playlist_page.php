@@ -14,10 +14,7 @@
 		</header>
 		<nav>
 			<?php
-				$message_recherche = "par date dajout";
-				if ($sorted == "nom") {
-					$message_recherche = 'par nom';
-				}
+				$message_recherche = 'par nom';
 			?>
 			<form action="" method="post" class='recherche'>
 				<input type="text" name="search" placeholder="<?=$message_recherche?>">
@@ -33,9 +30,7 @@
 						$arrow = "down.png";
 					}
 				?>
-				<li><?=anchor("playlist/?sorted=date&by=$by",'Date',['role'=>($sorted=='date'?'button':'')]);?></li>
-				<li><?=anchor("playlist/?sorted=nom&by=$by",'Nom',['role'=>($sorted=='nom'?'button':'')]);?></li>
-				<li><?=anchor("playlist/?sorted=$sorted&by=$bynext", 
+				<li><?=anchor("playlist/view/$playlist->id?by=$bynext", 
 								"<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",
 								['role'=> 'button', 'class'=>'flipflop']);?></li>
 			</ul>
