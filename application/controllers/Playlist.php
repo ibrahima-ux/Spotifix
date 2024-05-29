@@ -54,6 +54,7 @@ class Playlist extends CI_Controller {
 	}
 
 	public function setSession($infos){
+		session_start();
 		$query = $this->model_user->connect($infos);
 		foreach ($query as $user) {
 		}
@@ -64,7 +65,7 @@ class Playlist extends CI_Controller {
 	public function deconnection(){
 		session_start();
 		session_destroy();
-		$this->connection();
+		redirect('playlist/');
 	}
 
 	public function register(){
