@@ -103,9 +103,13 @@ class Playlist extends CI_Controller {
 	public function new(){
 		session_start();
 		if ($this->model_user->isUser($_SESSION['id']) != null) {
-			$this->load->view('layout/header');
-			$this->load->view('new_playlist');
-			$this->load->view('layout/footer');
+			if ($this->input->get('named') == true) {
+				$this->newPlaylist();
+			}else {
+				$this->load->view('layout/header');
+				$this->load->view('new_playlist', ['what'=> 'newPlaylist/?named=true']);
+				$this->load->view('layout/footer');
+			}
 		}else {
 			session_write_close();
 			$this->connection();
@@ -120,6 +124,33 @@ class Playlist extends CI_Controller {
 		}
 		session_write_close();
 		redirect('playlist/');
+	}
+
+	public function duplication($id){
+		session_start();
+		if ($this->model_user->isUser($_SESSION['id']) != null) {
+			if ($this->input->get('named') == true) {
+				session_write_close();
+				$this->duplicationPlaylist($id);
+			}else {
+				$this->load->view('layout/header');
+				$this->load->view('new_playlist', ['what'=> $id."?named=true"]);
+				$this->load->view('layout/footer');
+			}
+		}else {
+			session_write_close();
+			$this->connection();
+		}
+	}
+
+	public function duplicationPlaylist($id){
+		session_start();
+		if ($this->model_user->isUser($_SESSION['id']) != null) {
+			$name = filter_input(INPUT_POST, "name",FILTER_DEFAULT);
+			$this->model_playlist->duplicatePlaylist($name, $id);
+		}
+		session_write_close();
+		//redirect('playlist/');
 	}
 
 	public function view($id, $message = ''){

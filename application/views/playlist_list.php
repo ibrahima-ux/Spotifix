@@ -1,3 +1,6 @@
+<?php
+	$CI =& get_instance();
+?>
 <h5>Playlists de </h5>
 <div>
 	<article>
@@ -5,15 +8,19 @@
 			<nav class="centered">
 				<h3><?=$_SESSION['user']?></h3>
 				<ul>
-					<li><?=anchor('playlist/new','Nouvelle playlist',['role'=> 'button']);?></li>
-					<li><?=anchor('playlist/deconnection','Déconnection',['role'=> 'button', 'class'=> 'badbuttons']);?></li>
+					<li><?=anchor('playlist/new',
+									"<img src='{$CI->config->base_url("assets/add.png")}' alt='del' width='30px' />",
+									['role'=>'button', 'style'=>'padding: 10px;']);?></li>
+					<li><?=anchor('playlist/deconnection',
+									"<img src='{$CI->config->base_url("assets/log_out.png")}' alt='del' width='30px' />",
+									['role'=> 'button', 'class'=> 'badbuttons', 'style'=>'padding: 10px;']);?></li>
 				</ul>
 			</nav>
 			
 		</header>
 		<nav>
 			<?php
-				$message_recherche = 'par date de création';
+				$message_recherche = 'par date';
 				if ($sorted == "nom") {
 					$message_recherche = 'par nom';
 				}

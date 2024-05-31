@@ -7,7 +7,7 @@
 	<article>
 		<header class='short-text'>
 			<nav class = "centered">
-				<h3 class="titre">Dans quelle playlist voulez-vous ajouter une musique ?</h3>
+				<h3 class="titre">Dans quelle playlist voulez-vous ajouter de la musique ?</h3>
 			</nav>
 		</header>
 		<nav style="justify-content: space-around;">

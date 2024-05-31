@@ -37,7 +37,7 @@
 		echo "<header class='short-text'>";
 		echo anchor("musique/view/{$music->id}","{$music->name} ");
 		echo "</header><p>";
-		echo anchor("$music->artiste_id", "$music->artistName");
+		echo anchor("artistes/view/$music->artiste_id", "$music->artistName");
 		echo " - {$music->genreName}</p>";
 		echo "</article></div>";
 	}

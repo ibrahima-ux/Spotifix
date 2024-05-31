@@ -1,6 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 class Musique extends CI_Controller {
 	public $sorted = 'nom';
 	public $by = 'asc';
@@ -20,6 +21,9 @@ class Musique extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 	public function view($id){
+		$CI =& get_instance();
+		require_once $CI->config->base_url("Youtube/vendor/autoload.php");
+
 		$musics = $this->model_music->getSingleMusics($id);
 		$this->load->view('layout/header');
 		$this->load->view('music_page',['musics'=>$musics]);

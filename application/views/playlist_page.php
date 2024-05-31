@@ -7,9 +7,15 @@
 		<header class='short-text'>
 			<nav class="centered">
 				<h3 class="titre"><?=$playlist->nom?></h3>
-				<?=anchor("playlist/deleteConfirm/$playlist->id",
-							"<img src='{$CI->config->base_url("assets/trash.png")}' alt='del' width='30px' />",
-							['role'=>'button', 'class'=>'badbuttons', 'style'=>'padding: 10px;']);?>
+				<div>
+					<?=anchor("playlist/duplication/$playlist->id",
+								"<img src='{$CI->config->base_url("assets/dupliquer.png")}' alt='del' width='30px' />",
+								['role'=>'button', 'style'=>'padding: 10px;']);?>
+					<?=anchor("playlist/deleteConfirm/$playlist->id",
+								"<img src='{$CI->config->base_url("assets/trash.png")}' alt='del' width='30px' />",
+								['role'=>'button', 'class'=>'badbuttons', 'style'=>'padding: 10px;']);?>
+					
+				</div>
 			</nav>
 		</header>
 		<nav>

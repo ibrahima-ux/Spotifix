@@ -41,7 +41,7 @@ class Model_playlist extends CI_Model {
 		);
 	}
 
-	public function playlists_tracks($id, $by, $search = ''){
+	public function playlists_tracks($id, $by = 'ASC', $search = ''){
 
 		$query = $this->db->query(
 			"SELECT track.id as id, song.name as name
@@ -108,5 +108,27 @@ class Model_playlist extends CI_Model {
 			AND trackId = $track
 			"
 		);
+	}
+
+	public function duplicatePlaylist($name, $initial){
+		$id = $_SESSION['id'];
+		$time = date('Y-m-d');
+
+		$this->db->query(
+			"INSERT INTO playlists (userId, nom, date)
+			VALUES ($id, '$name', '$time')
+			"
+		);
+
+		$query = $this->db->query(
+			"SELECT @@IDENTITY AS 'id'"
+		);
+		$musics = $this->playlists_tracks($initial);
+		
+		foreach ($query->result() as $q) {}
+
+		foreach ($musics as $music) {
+			$this->addTrack($music->id, $q->id);
+		}
 	}
 }

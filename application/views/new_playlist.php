@@ -6,7 +6,7 @@
 				<h3><?=$_SESSION['user']?></h3>
 			</nav>
 		</header>
-		<form action="newPlaylist" method="post">
+		<form action='<?="$what"?>' method="post">
             <div>
                 <label for="username">Nom de la playlist :</label>
                 <input type="text" id="name" name="name" required>
