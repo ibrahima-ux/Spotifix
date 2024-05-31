@@ -21,7 +21,6 @@ class Model_artiste extends CI_Model {
 			"SELECT DISTINCT name,id
 			FROM artist
 			WHERE id = $idA
-			ORDER BY name ASC
 			"
 		);
 	return $query->result();

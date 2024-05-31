@@ -1,4 +1,5 @@
-<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');                                             
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
+use LDAP\Result;                                             
 
 class Model_playlist extends CI_Model {
 	public function __construct(){
@@ -40,15 +41,15 @@ class Model_playlist extends CI_Model {
 		);
 	}
 
-	public function playlists_tracks($id){
+	public function playlists_tracks($id, $by){
 
 		$query = $this->db->query(
 			"SELECT track.id as id, song.name as name
 			FROM track_in_playlist
 			JOIN track ON track.id = track_in_playlist.trackId
 			JOIN song ON song.id = track.songId
-			WHERE track_in_playlist.playlistId = 1
-			ORDER BY song.name asc;
+			WHERE track_in_playlist.playlistId = $id
+			ORDER BY song.name $by;
 			"
 		);
 
@@ -70,6 +71,40 @@ class Model_playlist extends CI_Model {
 		$query = $this->db->query(
 			"DELETE FROM playlists
 			WHERE id = $id 
+			"
+		);
+	}
+
+	public function addTrack($track, $playlist){
+		if (!$this->isTrackInPlaylist($track, $playlist)) {
+			$this->db->query(
+				"INSERT INTO track_in_playlist 
+				values ($playlist, $track)
+				"
+			);
+		}
+	}
+
+	public function isTrackInPlaylist($track, $playlist){
+		if ($this->db->query(
+			"SELECT * FROM track_in_playlist 
+			WHERE playlistId = $playlist 
+			AND	trackId = $track
+			"
+		)->result() == null) {
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+
+	public function deleteSongFromPlaylist($track, $playlist){
+
+		$query = $this->db->query(
+			"DELETE FROM track_in_playlist
+			WHERE playlistId = $playlist
+			AND trackId = $track
 			"
 		);
 	}

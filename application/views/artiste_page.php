@@ -1,9 +1,10 @@
 <h5>Artist</h5>
 <?php
 	foreach ($artiste as $art) {
-		echo "<div><article>";
+		echo "<div><article style='margin-bottom: 70px'><header class='short-text' style='margin-bottom: -50px'><nav class='centered'>";
 		echo "<h3 class='titre'>$art->name</h3>";
-		echo "</article></div>";
+		echo anchor("playlist/addArtistsTracks/$art->id",'Ajouter a la Playlist',['role'=>'button', 'class' => 'addbuttons']);
+		echo "</nav></header></article></div>";
 	}
 
 	echo '<section class="list">';

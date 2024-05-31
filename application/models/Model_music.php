@@ -65,7 +65,7 @@ class Model_music extends CI_Model {
 	}
 	public function getSingleAlbum($id){
 		$query = $this->db->query(
-			"SELECT album.name,album.id,year,artist.name as artistName, artist.id as artist_id, genre.name as genreName,jpeg 
+			"SELECT album.name as name,album.id as id,year,artist.name as artistName, artist.id as artist_id, genre.name as genreName,jpeg 
 			FROM album 
 			JOIN artist ON album.artistid = artist.id
 			JOIN genre ON genre.id = album.genreid
@@ -87,7 +87,7 @@ class Model_music extends CI_Model {
 	}
 	public function getSingleMusics($id){
 		$query = $this->db->query(
-			"SELECT song.id as ID, diskNumber, number, duration, song.name as song, album.name as album, artist.name as artist, album.id as album_id, artist.id as artist_id, genre.name as genre
+			"SELECT track.id as track_id, song.id as ID, diskNumber, number, duration, song.name as song, album.name as album, artist.name as artist, album.id as album_id, artist.id as artist_id, genre.name as genre
 			FROM `track` 
 			JOIN song on songId = song.id
 			JOIN album ON track.albumId = album.id
