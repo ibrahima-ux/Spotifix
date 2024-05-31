@@ -14,7 +14,7 @@
 		<main class='container'>
 			<nav>
   <ul>
-    <li><h2><strong>Spotifix</strong></h2></li>
+    <li><h2><strong><?=anchor("albums", "Spotifix",['class'=>'no_a_style, title'])?></strong></h2></li>
   </ul>
   <ul>
   <li><?=anchor('albums','Albums');?></li>

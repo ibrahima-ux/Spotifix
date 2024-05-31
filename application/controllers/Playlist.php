@@ -89,7 +89,7 @@ class Playlist extends CI_Controller {
 					$this->load->view('layout/footer');
 				}else{
 					$this->setSession($infos);
-					$this->index();
+					redirect('playlist/');
 				}
 			}else{
 				$this->load->view('layout/header');
@@ -119,7 +119,7 @@ class Playlist extends CI_Controller {
 			$this->model_playlist->newPlaylist($name);
 		}
 		session_write_close();
-		$this->index();
+		redirect('playlist/');
 	}
 
 	public function view($id, $message = ''){
@@ -139,7 +139,7 @@ class Playlist extends CI_Controller {
 		if ($this->model_playlist->getSinglePlaylists($id) != null) {
 			$this->model_playlist->deletePlaylist($id);
 		}
-		$this->index();
+		redirect('playlist/');
 	}
 
 	public function deleteConfirm($id){

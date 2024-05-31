@@ -38,7 +38,7 @@
 				<li><?=anchor("playlist/?sorted=$sorted&by=$bynext", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
 			</ul>
 		</nav>
-		<section class="list">
+		<section class="play_list">
 			<?php
 			foreach($playlists as $playlist){
 				echo "<article>";

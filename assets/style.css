@@ -46,6 +46,15 @@ a.badbuttons {
 	border-color: crimson;
 }
 
+a.no_a_style {
+	text-decoration: none;
+  	text-transform: none;
+}
+
+a.title {
+	color: white;
+}
+
 error.errorMessage {
 	color: rgb(239 72 72);
 }
