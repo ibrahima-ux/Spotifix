@@ -48,7 +48,7 @@ class Playlist extends CI_Controller {
 				$this->load->view('layout/footer');
 			}else{
 				$this->setSession($infos);
-				$this->index();
+				redirect('Playlist/index');
 			}
 		}
 	}
