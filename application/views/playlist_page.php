@@ -35,11 +35,11 @@
 								['role'=> 'button', 'class'=>'flipflop']);?></li>
 			</ul>
 		</nav>
-		<section class="list">
+		<section class="play_list">
 			<?php
 			foreach($songs as $song){
 				echo "<article>";
-				echo "<header style='margin-bottom: -50px'>";
+				echo "<header style='margin-bottom: -50px; display: flex; justify-content: space-between; align-items: center;'>";
 				echo anchor("musique/view/{$song->id}","{$song->name}",['style'=>'margin-right: 15px;']);
 				echo anchor("playlist/deleteSongFromPlaylist/?playlist=$playlist->id&track=$song->id",
 							"<img src='{$CI->config->base_url("assets/trash_red.png")}' alt='del' width='25px' />",);

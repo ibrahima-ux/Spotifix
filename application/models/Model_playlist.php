@@ -41,7 +41,7 @@ class Model_playlist extends CI_Model {
 		);
 	}
 
-	public function playlists_tracks($id, $by){
+	public function playlists_tracks($id, $by, $search = ''){
 
 		$query = $this->db->query(
 			"SELECT track.id as id, song.name as name
@@ -49,6 +49,7 @@ class Model_playlist extends CI_Model {
 			JOIN track ON track.id = track_in_playlist.trackId
 			JOIN song ON song.id = track.songId
 			WHERE track_in_playlist.playlistId = $id
+			AND song.name LIKE '%$search%'
 			ORDER BY song.name $by;
 			"
 		);

@@ -1,3 +1,17 @@
+section.play_list
+{
+	margin: 0 9em;
+}
+
+@media (max-width: 800px) 
+{
+	
+	section.play_list
+	{
+		margin: 0 5em;
+	}
+}
+
 section.list
 {
 	display : flex;
@@ -73,3 +87,4 @@ h3.titre{
 .question{
 	justify-content: space-around;
 }
+

@@ -13,7 +13,7 @@
 		</header>
 		<nav>
 			<?php
-				$message_recherche = 'par date';
+				$message_recherche = 'par date de création';
 				if ($sorted == "nom") {
 					$message_recherche = 'par nom';
 				}
