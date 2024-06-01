@@ -125,4 +125,32 @@ class Model_music extends CI_Model {
 		);
 	return $query->result();
 	}
+
+	public function nb_tracks_filtered($genres,$artists){
+
+		$SQLwhere = 'WHERE 1=2 ';
+	
+		if ($genres != null) {
+			foreach ($genres as $genre) {
+				$SQLwhere .= "OR '$genre' = genre.name ";
+			}
+		}elseif($artists != null){
+			foreach ($artists as $artist) {
+				$SQLwhere .= "OR '$artist' = artist.name ";
+			}
+		}
+
+		$musics = $this->db->query(
+			"SELECT count(*) as number
+			FROM artist
+			JOIN album on album.artistId = artist.id
+			JOIN genre on genre.id = album.genreId
+			JOIN track on track.albumId = album.id
+			$SQLwhere
+			ORDER BY artist.name
+			"
+		)->result();
+
+		return $musics;
+	}
 }

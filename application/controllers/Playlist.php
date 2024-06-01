@@ -119,11 +119,16 @@ class Playlist extends CI_Controller {
 	public function newPlaylist(){
 		session_start();
 		if ($this->model_user->isUser($_SESSION['id']) != null) {
-			$name = filter_input(INPUT_POST, "name",FILTER_DEFAULT);
-			$this->model_playlist->newPlaylist($name);
+			$name = $this->input->post('name');
+			if ($this->input->post('random') != 'random') {
+				$this->model_playlist->newPlaylist($name);
+				session_write_close();
+				redirect('playlist/');
+			}else {
+				session_write_close();
+				redirect("playlist/choose_genre/$name");
+			}
 		}
-		session_write_close();
-		redirect('playlist/');
 	}
 
 	public function duplication($id){
@@ -150,7 +155,7 @@ class Playlist extends CI_Controller {
 			$this->model_playlist->duplicatePlaylist($name, $id);
 		}
 		session_write_close();
-		//redirect('playlist/');
+		redirect('playlist/');
 	}
 
 	public function view($id, $message = ''){
@@ -239,5 +244,68 @@ class Playlist extends CI_Controller {
 			$this->load->view('playlist_selector',['id'=>$id,'playlists'=>$playlists, 'addWhat'=>'addArtistsTracks']);
 			$this->load->view('layout/footer');
 		}
+	}
+
+	public function choose_genre($name){
+		session_start();
+		if ($this->input->get('choosed_genre') != true) {
+			$this->load->model('model_genre');
+			$genres = $this->model_genre->get_genre();
+			$this->load->view('layout/header');
+			$this->load->view('choose_genre',['genres'=>$genres,'name'=>$name]);
+			$this->load->view('layout/footer');
+		}else{
+			session_write_close();
+			$this->choose_artist($name);
+		}
+	}
+
+	public function choose_artist($name){
+		session_start();
+		$this->load->model('model_artiste');
+
+		$genres = $this->input->post('genre');
+		if ($this->input->get('choosed_artiste') != true) {
+			$artists = $this->model_artiste->get_artist_with_genre($genres);
+			$this->load->view('layout/header');
+			$this->load->view('choose_artiste',['artists'=>$artists,"genres"=>$genres,'name'=>$name]);
+			$this->load->view('layout/footer');
+		}else {
+			$artists = $this->input->post('artists');
+			session_write_close();
+			$this->choose_number($name);
+		}
+		session_write_close();
+	}
+
+	public function choose_number($name){
+		session_start();
+
+		$genres = $this->input->post('genre');
+		$artists = $this->input->post('artists');
+		$max = $this->model_music->nb_tracks_filtered($genres,$artists);
+		if ($this->input->get('choosed_num') != true) {
+			
+			$this->load->view('layout/header');
+			$this->load->view('choose_number',['artists'=>$artists,"genres"=>$genres,'name'=>$name,'max'=>$max]);
+			$this->load->view('layout/footer');
+		}else {
+			$nb = $this->input->post('nb');
+			foreach ($max as $m) {}
+			session_write_close();
+			$this->create_random_playlist($genres,$artists,$name,$nb,$m->number);
+		}
+		session_write_close();
+	}
+
+	public function create_random_playlist($genres,$artists,$name,$nb,$max){
+		session_start();
+		if ($this->model_user->isUser($_SESSION['id']) != null) {
+			$this->model_playlist->newPlaylistRand($name,$genres,$artists,$nb,$max);
+			session_write_close();
+			redirect('playlist/');
+		}
+		session_write_close();
+
 	}
 }

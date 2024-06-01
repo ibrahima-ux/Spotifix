@@ -25,4 +25,28 @@ class Model_artiste extends CI_Model {
 		);
 	return $query->result();
 	}
+
+	public function get_artist_with_genre($genres){
+
+		$SQLgenres = 'WHERE "" = genre.name ';
+
+		if ($genres == null) {
+			$SQLgenres = '';
+		}else{
+			foreach ($genres as $genre) {
+				$SQLgenres .= "OR '$genre' = genre.name ";
+			}
+		}
+
+		$query = $this->db->query(
+			"SELECT DISTINCT artist.name,artist.id
+			FROM artist
+			JOIN album on album.artistId = artist.id
+			JOIN genre on genre.id = album.genreId
+			$SQLgenres
+			ORDER BY artist.name
+			"
+		);
+	return $query->result();
+	}
 }
