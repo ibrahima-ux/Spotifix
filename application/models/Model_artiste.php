@@ -28,13 +28,19 @@ class Model_artiste extends CI_Model {
 
 	public function get_artist_with_genre($genres){
 
-		$SQLgenres = 'WHERE "" = genre.name ';
-
-		if ($genres == null) {
-			$SQLgenres = '';
-		}else{
+		$i = 0;
+		$SQLwhere = '';
+		
+		if ($genres != null) {
 			foreach ($genres as $genre) {
-				$SQLgenres .= "OR '$genre' = genre.name ";
+				if ($genre != ''){
+					if ($i == 0) {
+						$SQLwhere .= "WHERE '$genre' = genre.name ";
+					}else {
+						$SQLwhere .= "OR '$genre' = genre.name ";
+					}
+					$i++;
+				}
 			}
 		}
 
@@ -43,7 +49,7 @@ class Model_artiste extends CI_Model {
 			FROM artist
 			JOIN album on album.artistId = artist.id
 			JOIN genre on genre.id = album.genreId
-			$SQLgenres
+			$SQLwhere
 			ORDER BY artist.name
 			"
 		);

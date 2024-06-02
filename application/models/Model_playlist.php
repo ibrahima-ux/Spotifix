@@ -132,21 +132,43 @@ class Model_playlist extends CI_Model {
 		}
 	}
 
+	private function is_nb_in_array($nb, $array){
+		foreach ($array as $key => $value) {
+			if ($value == $nb) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public function newPlaylistRand($name,$genres,$artists,$nb,$max){
 		
-	
-		$SQLwhere = 'WHERE 1=2 ';
-	
+		$i = 0;
+		$SQLwhere = '';
+		
 		if ($genres != null) {
 			foreach ($genres as $genre) {
-				$SQLwhere .= "OR '$genre' = genre.name ";
+				if ($genre != ''){
+					if ($i == 0) {
+						$SQLwhere .= "WHERE '$genre' = genre.name ";
+					}else {
+						$SQLwhere .= "OR '$genre' = genre.name ";
+					}
+					$i++;
+				}
 			}
-		}elseif($artists != null){
+		}
+		if($artists != null){
 			foreach ($artists as $artist) {
-				$SQLwhere .= "OR '$artist' = artist.name ";
+				if (true) {
+					if ($i == 0) {
+						$SQLwhere .= "WHERE '$artist' = artist.name ";
+					}else {
+						$SQLwhere .= "OR '$artist' = artist.name ";
+					}
+					$i++;
+				}
 			}
-		}else {
-			$SQLwhere = 'Where 1=2';
 		}
 
 		$musics = $this->db->query(
@@ -178,11 +200,11 @@ class Model_playlist extends CI_Model {
 		for ($i=0; $i < $nb; $i++) { 
 			$nb_random = rand(0,$max-1);
 			if($i == 0){
-				while (in_array($nb_random,$used_nb)) {
+				while ($this->is_nb_in_array($nb_random,$used_nb)) {
 					$nb_random = rand(0,$max-1);
 				}
 			}
-			$used_nb[] = $nb_random;
+			$used_nb[$i] = $nb_random;
 			
 			$j = 0;
 
@@ -195,6 +217,8 @@ class Model_playlist extends CI_Model {
 			}
 			
 		}
+
+		var_dump($used_nb);
 
 	}
 }

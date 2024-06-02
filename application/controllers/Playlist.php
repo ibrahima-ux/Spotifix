@@ -303,7 +303,7 @@ class Playlist extends CI_Controller {
 		if ($this->model_user->isUser($_SESSION['id']) != null) {
 			$this->model_playlist->newPlaylistRand($name,$genres,$artists,$nb,$max);
 			session_write_close();
-			redirect('playlist/');
+			echo $nb;
 		}
 		session_write_close();
 

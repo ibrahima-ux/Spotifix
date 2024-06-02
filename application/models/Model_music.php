@@ -128,17 +128,34 @@ class Model_music extends CI_Model {
 
 	public function nb_tracks_filtered($genres,$artists){
 
-		$SQLwhere = 'WHERE 1=2 ';
-	
+		$i = 0;
+		$SQLwhere = '';
+		
 		if ($genres != null) {
 			foreach ($genres as $genre) {
-				$SQLwhere .= "OR '$genre' = genre.name ";
-			}
-		}elseif($artists != null){
-			foreach ($artists as $artist) {
-				$SQLwhere .= "OR '$artist' = artist.name ";
+				if ($genre != ''){
+					if ($i == 0) {
+						$SQLwhere .= "WHERE '$genre' = genre.name ";
+					}else {
+						$SQLwhere .= "OR '$genre' = genre.name ";
+					}
+					$i++;
+				}
 			}
 		}
+		if($artists != null){
+			foreach ($artists as $artist) {
+				if (true) {
+					if ($i == 0) {
+						$SQLwhere .= "WHERE '$artist' = artist.name ";
+					}else {
+						$SQLwhere .= "OR '$artist' = artist.name ";
+					}
+					$i++;
+				}
+			}
+		}
+
 
 		$musics = $this->db->query(
 			"SELECT count(*) as number
