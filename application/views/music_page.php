@@ -12,9 +12,7 @@
 		echo "<p class='margin'>Disque N° : $music->diskNumber</p>";
 		echo "<p class='margin'>Piste N° : $music->number</p>";
 
-		$durer = round($music->duration / 60, 2);
-
-		echo "<p class='margin'>Durée : $durer minutes </p>";
+		echo "<p class='margin'>Durée : $music->duration minutes </p>";
 		echo "</article></div>";
 	}
 ?>

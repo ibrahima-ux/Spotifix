@@ -141,7 +141,7 @@ class Model_playlist extends CI_Model {
 		return false;
 	}
 
-	public function newPlaylistRand($name,$genres,$artists,$nb,$max){
+	public function newPlaylistRand($name,$genres,$artists,$nb){
 		
 		$i = 0;
 		$SQLwhere = '';
@@ -160,7 +160,7 @@ class Model_playlist extends CI_Model {
 		}
 		if($artists != null){
 			foreach ($artists as $artist) {
-				if (true) {
+				if ($artist != '') {
 					if ($i == 0) {
 						$SQLwhere .= "WHERE '$artist' = artist.name ";
 					}else {
@@ -181,7 +181,8 @@ class Model_playlist extends CI_Model {
 			ORDER BY artist.name
 			"
 		)->result();
-
+		
+		$max = count($musics);
 		$id = $_SESSION['id'];
 		$time = date('Y-m-d');
 		$used_nb = [];
@@ -197,28 +198,13 @@ class Model_playlist extends CI_Model {
 
 		foreach ($query->result() as $q) {}
 
-		for ($i=0; $i < $nb; $i++) { 
+		for ($k=0; $k < $nb; $k++) { 
 			$nb_random = rand(0,$max-1);
-			if($i == 0){
-				while ($this->is_nb_in_array($nb_random,$used_nb)) {
-					$nb_random = rand(0,$max-1);
-				}
+			while ($this->is_nb_in_array($nb_random,$used_nb) && $nb_random < 0) {
+				$nb_random = rand(0,$max-1);
 			}
-			$used_nb[$i] = $nb_random;
-			
-			$j = 0;
-
-			foreach ($musics as $music) {
-				if ($j == $nb_random) {
-					$this->addTrack($music->id, $q->id);
-					break;
-				}
-				$j++;
-			}
-			
+			$used_nb[$k] = $nb_random;
+			$this->addTrack($musics[$nb_random]->id, $q->id);
 		}
-
-		var_dump($used_nb);
-
 	}
 }

@@ -293,17 +293,17 @@ class Playlist extends CI_Controller {
 			$nb = $this->input->post('nb');
 			foreach ($max as $m) {}
 			session_write_close();
-			$this->create_random_playlist($genres,$artists,$name,$nb,$m->number);
+			$this->create_random_playlist($genres,$artists,$name,$nb);
 		}
 		session_write_close();
 	}
 
-	public function create_random_playlist($genres,$artists,$name,$nb,$max){
+	public function create_random_playlist($genres,$artists,$name,$nb){
 		session_start();
 		if ($this->model_user->isUser($_SESSION['id']) != null) {
-			$this->model_playlist->newPlaylistRand($name,$genres,$artists,$nb,$max);
+			$this->model_playlist->newPlaylistRand($name,$genres,$artists,$nb);
 			session_write_close();
-			echo $nb;
+			redirect('Playlist/index');
 		}
 		session_write_close();
 
