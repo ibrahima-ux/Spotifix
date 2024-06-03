@@ -113,8 +113,19 @@ main {
     flex: 1;
 }
 
-footer {
-    background: #f8f9fa;
-    padding: 1rem;
+body > footer {
+	width: 100%;
     text-align: center;
+    left: 0;
+    bottom: 0;
+	padding-block: 0 !important;
+}
+footer>article {
+	margin: 0;
+	padding: 0.5em;
+}
+
+footer>article>* {
+	font-size: small;
+	margin-bottom: 0.05em;
 }
