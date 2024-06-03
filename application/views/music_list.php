@@ -48,7 +48,7 @@
 	</ul>
 </nav>
 <nav class="paginaire">
-	<h6>Page <?="$page"." / ".round($pagesmax)?></h6>
+	<h6>Page <?=($page+1)." / ".round($pagesmax+1)?></h6>
 	<div class="page">
 		<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search",'Prev',['role'=>'button']);?>
 		<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search",'Next',['role'=>'button']);?>
