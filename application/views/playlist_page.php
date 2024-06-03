@@ -20,7 +20,12 @@
 		</header>
 		<nav>
 			<?php
-				$message_recherche = 'par nom';
+				$message_recherche = 'par titre';
+				if ($sorted == "album") {
+					$message_recherche = 'par album';
+				}elseif ($sorted == "duree") {
+					$message_recherche = 'par durée';
+				}
 			?>
 			<form action="" method="post" class='recherche'>
 				<input type="text" name="search" placeholder="<?=$message_recherche?>">
@@ -36,11 +41,15 @@
 						$arrow = "down.png";
 					}
 				?>
-				<li><?=anchor("playlist/view/$playlist->id?by=$bynext", 
+				<li><?=anchor("playlist/view/$playlist->id?sorted=nom&by=$by&search=$search",'Titre',['role'=>($sorted=='nom'?'button':'')]);?></li>
+				<li><?=anchor("playlist/view/$playlist->id?sorted=album&by=$by&search=$search",'Album',['role'=>($sorted=='album'?'button':'')]);?></li>
+				<li><?=anchor("playlist/view/$playlist->id?sorted=duree&by=$by&search=$search",'Durée',['role'=>($sorted=='duree'?'button':'')]);?></li>
+				<li><?=anchor("playlist/view/$playlist->id?sorted=$sorted&by=$bynext&search=$search", 
 								"<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",
 								['role'=> 'button', 'class'=>'flipflop']);?></li>
 			</ul>
 		</nav>
+		<nav style="display:inline-block;">Nombres de musiques : <b><?=$count?></b></nav>
 		<table class="play_list">
 			<tr>
 				<th style="display:flex;align-items: center;justify-content: center;"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' width="50%" /></th>

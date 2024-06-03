@@ -160,13 +160,14 @@ class Playlist extends CI_Controller {
 
 	public function view($id, $message = ''){
 		session_start();
-		$by = $this->input->get('by');
-		$search = $this->input->post('search');
+		$sorted = $this->input->get('sorted');
+		$search = $this->input->get('search');
 		$playlists = $this->model_playlist->getSinglePlaylists($id);
 		foreach ($playlists as $playlist){}
-		$tracks = $this->model_playlist->playlists_tracks($id, $by, $search);
+		$tracks = $this->model_playlist->playlists_tracks($id, $this->by, $this->sorted, $search);
+		$count = $this->model_playlist->playlists_tracks_count($id);
 		$this->load->view('layout/header');
-		$this->load->view('playlist_page',['id'=>$id, 'playlist'=>$playlist, 'songs'=>$tracks, 'sorted'=>$this->sorted, 'by'=>$this->by]);
+		$this->load->view('playlist_page',['id'=>$id, 'playlist'=>$playlist, 'songs'=>$tracks, 'sorted'=>$sorted, 'by'=>$this->by, 'search'=>$search, 'count'=>$count]);
 		$this->load->view('layout/footer');
 		session_write_close();
 	}

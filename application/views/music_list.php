@@ -1,24 +1,36 @@
 <?php
 	$CI =& get_instance();
+
+	$pagenext = $page;
+	$pageprev = $page;
+	if ($page < $pagesmax-1){
+		$pagenext = $page+1;
+	}
+	if ($page != 0) {
+		$pageprev = $page-1;
+	}
 ?>
 <h5>Musique list</h5>
 <nav>
 	<!-- Ajout d'un formulaire de recherche pour les playlists -->
 	<?php
         $message_recherche = 'par nom';
-        if ($sorted == "artistes") {
+        if ($sorted == "album") {
+            $message_recherche = 'par album';
+        }elseif ($sorted == "artistes") {
             $message_recherche = 'par artiste';
         }elseif ($sorted == "genre") {
             $message_recherche = 'par genre';
+        }elseif ($sorted == "duree") {
+            $message_recherche = 'par durée';
         }
     ?>
-    <form action="" method="post" class='recherche'>
+    <form action=<?="?sorted=$sorted&by=$by"?> method="get" class='recherche'>
         <input type="text" name="search" placeholder="<?=$message_recherche?>">
         <button type="submit">Recherche</button>
     </form>
 	<ul style="align-items: normal;">
 	<?php
-			$CI =& get_instance();
 			if ($by == 'asc') {
 				$bynext = "desc";
 				$arrow = "up.png";
@@ -27,18 +39,27 @@
 				$arrow = "down.png";
 			}
 		?>
-		<li><?=anchor("musique/?sorted=nom&by=$by",'Nom',['role'=>($sorted=='nom'?'button':'')]);?></li>
-		<li><?=anchor("musique/?sorted=genre&by=$by",'Genre',['role'=>($sorted=='genre'?'button':'')]);?></li>
-		<li><?=anchor("musique/?sorted=artistes&by=$by",'Artistes',['role'=>($sorted=='artistes'?'button':'')]);?></li>
-		<li><?=anchor("musique/?sorted=$sorted&by=$bynext", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
+		<li><?=anchor("musique/?sorted=nom&by=$by&search=$search",'Titre',['role'=>($sorted=='nom'?'button':'')]);?></li>
+		<li><?=anchor("musique/?sorted=album&by=$by&search=$search",'Album',['role'=>($sorted=='album'?'button':'')]);?></li>
+		<li><?=anchor("musique/?sorted=artistes&by=$by&search=$search",'Artistes',['role'=>($sorted=='artistes'?'button':'')]);?></li>
+		<li><?=anchor("musique/?sorted=genre&by=$by&search=$search",'Genre',['role'=>($sorted=='genre'?'button':'')]);?></li>
+		<li><?=anchor("musique/?sorted=duree&by=$by&search=$search",'Duree',['role'=>($sorted=='duree'?'button':'')]);?></li>
+		<li><?=anchor("musique/?sorted=$sorted&by=$bynext&search=$search", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
 	</ul>
+</nav>
+<nav class="paginaire">
+	<h6>Page <?="$page"." / ".round($pagesmax)?></h6>
+	<div class="page">
+		<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search",'Prev',['role'=>'button']);?>
+		<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search",'Next',['role'=>'button']);?>
+	</div>
 </nav>
 <table class="play_list">
 	<tr>
-		<th style="display:flex;align-items: center;justify-content: center;"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' width="50%" /></th>
+		<th class="column_head_image"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' /></th>
 		<th>Titre</th>
 		<th>Album</th>
-		<th>Artist</th>
+		<th>Artiste</th>
 		<th>Genre</th>
 		<th>Temps</th>
 	</tr>
@@ -54,3 +75,8 @@
 		
 	?>
 </table>
+
+<div class="page">
+	<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search",'Prev',['role'=>'button']);?>
+	<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search",'Next',['role'=>'button']);?>
+</div>

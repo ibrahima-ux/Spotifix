@@ -139,3 +139,31 @@ footer>article>* {
 	width: 95px;
 	height: 20px;
 }
+
+.column_head_image{
+	display:flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.column_head_image>*{
+	width: 28px;
+	height: 28px;
+}
+
+.page{
+	display: flex;
+	align-items: center;
+	justify-content: right;
+}
+.page>*{
+	margin: 5px;
+}
+
+.paginaire{
+	display:flex;
+	align-items: center;
+}
+.paginaire>h6{
+	margin: 0;
+}

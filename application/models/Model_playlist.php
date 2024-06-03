@@ -41,7 +41,17 @@ class Model_playlist extends CI_Model {
 		);
 	}
 
-	public function playlists_tracks($id, $by = 'ASC', $search = ''){
+	public function playlists_tracks($id, $by = 'ASC', $sorted = 'nom', $search = ''){
+
+		if ($sorted == 'nom') {
+			$sorted = 'song.name';
+		}elseif ($sorted == 'album') {
+			$sorted = 'album.name';
+		}elseif ($sorted == 'duree') {
+			$sorted = 'SUBSTR(SEC_TO_TIME(duration),4)';
+		} else {
+			$sorted = 'song.name';
+		}
 
 		$query = $this->db->query(
 			"SELECT track.id as id, song.name as name,	track.albumId as album, SUBSTR(SEC_TO_TIME(duration),4) as duration, album.name as albumName, jpeg
@@ -51,12 +61,29 @@ class Model_playlist extends CI_Model {
 			JOIN album ON track.albumId = album.id
 			JOIN cover ON cover.id = album.coverid
 			WHERE track_in_playlist.playlistId = $id
-			AND song.name LIKE '%$search%'
-			ORDER BY song.name $by;
+			AND $sorted LIKE '%$search%'
+			ORDER BY $sorted $by;
 			"
 		);
 
 	return $query->result();
+	}
+
+	public function playlists_tracks_count($id){
+
+		$query = $this->db->query(
+			"SELECT count(*) as nb
+			FROM track_in_playlist
+			JOIN track ON track.id = track_in_playlist.trackId
+			JOIN song ON song.id = track.songId
+			JOIN album ON track.albumId = album.id
+			JOIN cover ON cover.id = album.coverid
+			WHERE track_in_playlist.playlistId = $id
+			"
+		);
+		foreach ($query->result() as $q) {
+			return $q->nb;
+		}
 	}
 
 	public function getSinglePlaylists($id){

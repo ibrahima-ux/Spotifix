@@ -103,9 +103,7 @@ class Model_music extends CI_Model {
 	return $query->result();
 	}
 
-	public function getMusics($sorted = 'nom', $by = 'asc', $search = ''){
-
-		$message = $search ?? '';
+	public function getMusics($sorted = 'nom', $by = 'asc', $search = '', $page = 0){
 
 		if ($sorted == 'genre') {
 			$sorted = 'genre.name';
@@ -113,7 +111,15 @@ class Model_music extends CI_Model {
 			$sorted = 'song.name';
 		}elseif ($sorted == 'artistes') {
 			$sorted = 'artist.name';
+		}elseif ($sorted == 'album') {
+			$sorted = 'album.name';
+		}elseif ($sorted == 'duree') {
+			$sorted = 'SUBSTR(SEC_TO_TIME(duration),4)';
 		}
+
+		$next = ($page+1)*100;
+		$prev = $page*100;
+
 
 		$query = $this->db->query(
 			"SELECT track.id as id, song.name as name, album.id as album_id, album.name as album_name, artist.id as artiste_id, artist.name as artistName, genre.name as genreName, SUBSTR(SEC_TO_TIME(duration),4) as duration, jpeg
@@ -123,11 +129,44 @@ class Model_music extends CI_Model {
 			JOIN artist ON album.artistId = artist.id
 			JOIN genre ON album.genreId = genre.id
 			JOIN cover ON cover.id = album.coverid
-			WHERE $sorted LIKE '%$message%'
+			WHERE $sorted LIKE '%$search%'
 			ORDER BY $sorted $by
+			LIMIT $prev, $next
 			"
 		);
 	return $query->result();
+	}
+
+	public function CountMusics($sorted = 'nom', $by = 'asc', $search = ''){
+
+		if ($sorted == 'genre') {
+			$sorted = 'genre.name';
+		}elseif ($sorted == 'nom') {
+			$sorted = 'song.name';
+		}elseif ($sorted == 'artistes') {
+			$sorted = 'artist.name';
+		}elseif ($sorted == 'album') {
+			$sorted = 'album.name';
+		}elseif ($sorted == 'duree') {
+			$sorted = 'SUBSTR(SEC_TO_TIME(duration),4)';
+		}
+		
+		$query = $this->db->query(
+			"SELECT count(*) as nb
+			FROM `track` 
+			JOIN song on songId = song.id
+			JOIN album ON track.albumId = album.id
+			JOIN artist ON album.artistId = artist.id
+			JOIN genre ON album.genreId = genre.id
+			JOIN cover ON cover.id = album.coverid
+			WHERE $sorted LIKE '%$search%'
+			ORDER BY $sorted $by
+			"
+		)->result();
+
+		foreach ($query as $q) {
+			return $q->nb/100;
+		}
 	}
 
 	public function nb_tracks_filtered($genres,$artists){
