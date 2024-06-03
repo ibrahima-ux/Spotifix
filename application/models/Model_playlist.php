@@ -44,10 +44,12 @@ class Model_playlist extends CI_Model {
 	public function playlists_tracks($id, $by = 'ASC', $search = ''){
 
 		$query = $this->db->query(
-			"SELECT track.id as id, song.name as name
+			"SELECT track.id as id, song.name as name,	track.albumId as album, SUBSTR(SEC_TO_TIME(duration),4) as duration, album.name as albumName, jpeg
 			FROM track_in_playlist
 			JOIN track ON track.id = track_in_playlist.trackId
 			JOIN song ON song.id = track.songId
+			JOIN album ON track.albumId = album.id
+			JOIN cover ON cover.id = album.coverid
 			WHERE track_in_playlist.playlistId = $id
 			AND song.name LIKE '%$search%'
 			ORDER BY song.name $by;

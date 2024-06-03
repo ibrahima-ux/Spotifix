@@ -1,8 +1,7 @@
 </main>
     <footer>
         <article>
-            <p>&copy; 2024 Mon Site Web. Tous droits réservés.</p>
-            <p><a href="https://iut-fbleau.fr/">Visitez notre IUT</a></p>
+            <p>&copy; 2024 Spotifix. Tous droits réservés.</p>
         </article>
     </footer>
 </body>

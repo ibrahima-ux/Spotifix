@@ -1,3 +1,6 @@
+<?php
+	$CI =& get_instance();
+?>
 <h5>Albums list</h5>
 <nav>
     <!-- Ajout d'un formulaire de recherche pour les playlists -->

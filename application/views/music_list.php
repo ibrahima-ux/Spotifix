@@ -1,3 +1,6 @@
+<?php
+	$CI =& get_instance();
+?>
 <h5>Musique list</h5>
 <nav>
 	<!-- Ajout d'un formulaire de recherche pour les playlists -->
@@ -30,17 +33,24 @@
 		<li><?=anchor("musique/?sorted=$sorted&by=$bynext", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
 	</ul>
 </nav>
-<section class="list">
-<?php
-	foreach($musics as $music){
-		echo "<div><article>";
-		echo "<header class='short-text'>";
-		echo anchor("musique/view/{$music->id}","{$music->name} ");
-		echo "</header><p>";
-		echo anchor("artistes/view/$music->artiste_id", "$music->artistName");
-		echo " - {$music->genreName}</p>";
-		echo "</article></div>";
-	}
-	
-?>
-</section>
+<table class="play_list">
+	<tr>
+		<th style="display:flex;align-items: center;justify-content: center;"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' width="50%" /></th>
+		<th>Titre</th>
+		<th>Album</th>
+		<th>Artist</th>
+		<th>Genre</th>
+		<th>Temps</th>
+	</tr>
+	<?php
+		foreach($musics as $music){
+			echo '<tr><td class="column_image"><img src="data:image/jpeg;base64,'.base64_encode($music->jpeg).'"'.' width="100%" /></td>';
+			echo "<td>".anchor("musique/view/{$music->id}","{$music->name}")."</td>";
+			echo "<td>".anchor("album/view/$music->album_id","$music->album_name")."</td>";
+			echo "<td>".anchor("artistes/view/$music->artiste_id","$music->artistName")."</td>";
+			echo "<td>{$music->genreName}</td>";
+			echo "<td>$music->duration</td></tr>";
+		}
+		
+	?>
+</table>

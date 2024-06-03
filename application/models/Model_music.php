@@ -52,11 +52,12 @@ class Model_music extends CI_Model {
 		}
 
 		$query = $this->db->query(
-			"SELECT track.id as id, song.name as name, album.name as album 
+			"SELECT track.id as id, song.name as name, album.name as album, SUBSTR(SEC_TO_TIME(duration),4) as duration, album.id as album_id, jpeg 
 			FROM track 
 			JOIN song on songId = song.id
 			JOIN album ON albumId = album.id
 			JOIN artist ON artistId = artist.id
+			JOIN cover ON cover.id = album.coverid
 			WHERE artist.id = $id  
 			ORDER BY $sorted $by
 			"
@@ -77,8 +78,9 @@ class Model_music extends CI_Model {
 	}
 	public function getAlbumMusics($id){
 		$query = $this->db->query(
-			"SELECT song.name as name, track.id as id, number FROM `track` 
+			"SELECT song.name as name, track.id as id, number, SUBSTR(SEC_TO_TIME(duration),4) as duration, album.name as album, album.id as album_id FROM `track` 
 			JOIN song on songId = song.id
+			JOIN album ON track.albumId = album.id
 			WHERE albumId = $id  
 			ORDER BY `track`.`number` ASC
 			"
@@ -87,12 +89,13 @@ class Model_music extends CI_Model {
 	}
 	public function getSingleMusics($id){
 		$query = $this->db->query(
-			"SELECT track.id as track_id, song.id as ID, diskNumber, number, SUBSTR(SEC_TO_TIME(duration),4) as duration, song.name as song, album.name as album, artist.name as artist, album.id as album_id, artist.id as artist_id, genre.name as genre
+			"SELECT track.id as track_id, song.id as ID, diskNumber, number, SUBSTR(SEC_TO_TIME(duration),4) as duration, song.name as song, album.name as album, artist.name as artist, album.id as album_id, artist.id as artist_id, genre.name as genre, jpeg
 			FROM `track` 
 			JOIN song on songId = song.id
 			JOIN album ON track.albumId = album.id
 			JOIN artist ON album.artistId = artist.id
 			JOIN genre ON album.genreId = genre.id
+			JOIN cover ON cover.id = album.coverid
 			WHERE track.id = $id 
 			ORDER BY `track`.`number` ASC
 			"
@@ -113,12 +116,13 @@ class Model_music extends CI_Model {
 		}
 
 		$query = $this->db->query(
-			"SELECT track.id as id, song.name as name, artist.id as artiste_id, artist.name as artistName, genre.name as genreName
+			"SELECT track.id as id, song.name as name, album.id as album_id, album.name as album_name, artist.id as artiste_id, artist.name as artistName, genre.name as genreName, SUBSTR(SEC_TO_TIME(duration),4) as duration, jpeg
 			FROM `track` 
 			JOIN song on songId = song.id
 			JOIN album ON track.albumId = album.id
 			JOIN artist ON album.artistId = artist.id
 			JOIN genre ON album.genreId = genre.id
+			JOIN cover ON cover.id = album.coverid
 			WHERE $sorted LIKE '%$message%'
 			ORDER BY $sorted $by
 			"

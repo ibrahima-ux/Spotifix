@@ -41,18 +41,23 @@
 								['role'=> 'button', 'class'=>'flipflop']);?></li>
 			</ul>
 		</nav>
-		<section class="play_list">
+		<table class="play_list">
+			<tr>
+				<th style="display:flex;align-items: center;justify-content: center;"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' width="50%" /></th>
+				<th>Titre</th>
+				<th>Album</th>
+				<th>Temps</th>
+			</tr>
 			<?php
-			foreach($songs as $song){
-				echo "<article>";
-				echo "<header style='margin-bottom: -50px; display: flex; justify-content: space-between; align-items: center;'>";
-				echo anchor("musique/view/{$song->id}","{$song->name}",['style'=>'margin-right: 15px;']);
-				echo anchor("playlist/deleteSongFromPlaylist/?playlist=$playlist->id&track=$song->id",
-							"<img src='{$CI->config->base_url("assets/trash_red.png")}' alt='del' width='25px' />",);
-				echo "</header>";
-				echo "</article>";
-			}
+				foreach($songs as $song){
+					echo '<tr><td class="column_image"><img src="data:image/jpeg;base64,'.base64_encode($song->jpeg).'"'.' width="100%" /></td>';
+					echo "<td>".anchor("musique/view/{$song->id}","{$song->name}"."</td>");
+					echo "<td>".anchor("albums/view/$song->album", $song->albumName)."</td>";
+					echo "<td>$song->duration</td>";
+					echo "<td>".anchor("playlist/deleteSongFromPlaylist/?playlist=$playlist->id&track=$song->id",
+							"<img src='{$CI->config->base_url("assets/trash_red.png")}' alt='del' width='25px' />");"</td><tr/>";
+				}
+				
 			?>
-		</section>
-	</article>
+		</table>
 </div>
