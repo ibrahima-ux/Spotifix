@@ -1,7 +1,8 @@
 <h5>Liste des Artistes</h5>
 <nav>
-    <form action="" method="post" class="recherche">
-        <input type="text" name="search" placeholder="par nom">
+    <form action="" method="get" class='recherche'>
+        <input type="text" name="search" placeholder="pas nom">
+		<input type="hidden" name="by" value="<?=$by?>">
         <button type="submit">Recherche</button>
     </form>
     <ul style="align-items: normal; float: left;">
@@ -15,7 +16,7 @@
             $arrow = "down.png";
         }
         ?>
-        <li><?=anchor("artistes/?by=$bynext", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
+        <li><?=anchor("artistes/?by=$bynext&search=$search", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
     </ul>
 </nav>
 <section class="list">

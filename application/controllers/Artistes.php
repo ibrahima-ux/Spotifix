@@ -22,12 +22,12 @@ class Artistes extends CI_Controller {
         $search_query = $this->input->post('search');  // Récupération de la requête de recherche
 
         // Recherche d'artistes si une requête de recherche est fournie, sinon obtention de tous les artistes
-        $artistes = $this->model_artiste->getArtists($this->by, $this->input->post('search'));
+        $artistes = $this->model_artiste->getArtists($this->by, $this->input->get('search'));
 
 
         // Chargement des vues avec les données nécessaires
         $this->load->view('layout/header');
-        $this->load->view('artiste_list', ['artistes' => $artistes, 'by' => $this->by, 'search_query' => $search_query]);
+        $this->load->view('artiste_list', ['artistes' => $artistes, 'by' => $this->by, 'search'=>$this->input->get('search'), 'search_query' => $search_query]);
         $this->load->view('layout/footer');
     }
 

@@ -1,5 +1,6 @@
 <?php
 	$CI =& get_instance();
+	
 ?>
 <h5>Playlist</h5>
 <div>
@@ -20,11 +21,14 @@
 		</header>
 		<nav>
 			<?php
-				$message_recherche = 'par titre';
+				$sorted == 'nom';
 				if ($sorted == "album") {
 					$message_recherche = 'par album';
 				}elseif ($sorted == "duree") {
 					$message_recherche = 'par durée';
+				}else {
+					$sorted = 'nom';
+					$message_recherche = 'par titre';
 				}
 			?>
 			<form action="" method="post" class='recherche'>
@@ -38,7 +42,7 @@
 						$arrow = "up.png";
 					}else {
 						$bynext = "asc";
-						$arrow = "down.png";
+						$arrow = 'down.png';
 					}
 				?>
 				<li><?=anchor("playlist/view/$playlist->id?sorted=nom&by=$by&search=$search",'Titre',['role'=>($sorted=='nom'?'button':'')]);?></li>

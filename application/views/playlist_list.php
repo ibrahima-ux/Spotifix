@@ -25,8 +25,10 @@
 					$message_recherche = 'par nom';
 				}
 			?>
-			<form action="" method="post" class='recherche'>
+			<form action="" method="get" class='recherche'>
 				<input type="text" name="search" placeholder="<?=$message_recherche?>">
+				<input type="hidden" name="sorted" value="<?=$sorted?>">
+				<input type="hidden" name="by" value="<?=$by?>">
 				<button type="submit">Recherche</button>
 			</form>
 			<ul style="align-items: normal;">

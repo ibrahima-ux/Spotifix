@@ -25,7 +25,7 @@
             $message_recherche = 'par durée';
         }
     ?>
-    <form action=<?="?sorted=$sorted&by=$by"?> method="get" class='recherche'>
+    <form action="" method="get" class='recherche'>
         <input type="text" name="search" placeholder="<?=$message_recherche?>">
 		<input type="hidden" name="sorted" value="<?=$sorted?>">
 		<input type="hidden" name="by" value="<?=$by?>">
@@ -69,7 +69,7 @@
 		foreach($musics as $music){
 			echo '<tr><td class="column_image"><img src="data:image/jpeg;base64,'.base64_encode($music->jpeg).'"'.' width="100%" /></td>';
 			echo "<td>".anchor("musique/view/{$music->id}","{$music->name}")."</td>";
-			echo "<td>".anchor("album/view/$music->album_id","$music->album_name")."</td>";
+			echo "<td>".anchor("albums/view/$music->album_id","$music->album_name")."</td>";
 			echo "<td>".anchor("artistes/view/$music->artiste_id","$music->artistName")."</td>";
 			echo "<td>{$music->genreName}</td>";
 			echo "<td>$music->duration</td></tr>";

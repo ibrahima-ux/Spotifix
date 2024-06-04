@@ -16,13 +16,10 @@ class Albums extends CI_Controller {
     }
 
     public function index() {
-        $albums = $this->model_music->getAlbums($this->sorted, $this->by, $this->input->post('search'));
+        $albums = $this->model_music->getAlbums($this->sorted, $this->by, $this->input->get('search'));
 
         $this->load->view('layout/header');
-        $this->load->view('albums_list', [
-            'albums' => $albums, 
-            'sorted' => $this->sorted, 
-            'by' => $this->by,
+        $this->load->view('albums_list', ['albums' => $albums, 'sorted' => $this->sorted, 'by' => $this->by, 'search'=>$this->input->get('search')
         ]);
         $this->load->view('layout/footer');
     }
