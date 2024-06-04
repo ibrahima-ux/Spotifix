@@ -68,7 +68,7 @@
 					echo "<td>".anchor("albums/view/$song->album", $song->albumName)."</td>";
 					echo "<td>$song->duration</td>";
 					echo "<td>".anchor("playlist/deleteSongFromPlaylist/?playlist=$playlist->id&track=$song->id",
-							"<img src='{$CI->config->base_url("assets/trash_red.png")}' alt='del' width='35px' />");"</td><tr/>";
+							"<img src='{$CI->config->base_url("assets/trash_red.png")}' alt='del' width='30px' />");"</td><tr/>";
 				}
 				
 			?>
