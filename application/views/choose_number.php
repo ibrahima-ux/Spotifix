@@ -12,9 +12,8 @@
             
             <?php 
                 foreach ($max as $maximus) {
-                    # code...
                 }
-                echo "<input type='number' id='nb' name='nb' min='1' max='$maximus->number' placeholder='maximum $maximus->number'>";
+                echo "<input type='number' id='nb' name='nb' min='1' max='$maximus->number' placeholder='maximum $maximus->number' value='$maximus->number'>";
 
                 if ($artists != null) {
                     foreach ($artists as $a => $artist) {

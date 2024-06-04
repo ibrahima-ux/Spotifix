@@ -284,16 +284,14 @@ class Playlist extends CI_Controller {
 
 		$genres = $this->input->post('genre');
 		$artists = $this->input->post('artists');
-		$max = $this->model_music->nb_tracks_filtered($genres,$artists);
 		if ($this->input->get('choosed_num') != true) {
 			
+			$max = $this->model_music->nb_tracks_filtered($genres,$artists);
 			$this->load->view('layout/header');
 			$this->load->view('choose_number',['artists'=>$artists,"genres"=>$genres,'name'=>$name,'max'=>$max]);
 			$this->load->view('layout/footer');
 		}else {
 			$nb = $this->input->post('nb');
-			foreach ($max as $m) {}
-			session_write_close();
 			$this->create_random_playlist($genres,$artists,$name,$nb);
 		}
 		session_write_close();

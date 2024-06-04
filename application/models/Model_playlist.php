@@ -228,12 +228,21 @@ class Model_playlist extends CI_Model {
 		foreach ($query->result() as $q) {}
 
 		for ($k=0; $k < $nb; $k++) { 
+			
+		}
+
+		while (count($used_nb) <= $nb) {
 			$nb_random = rand(0,$max-1);
-			while ($this->is_nb_in_array($nb_random,$used_nb) && $nb_random < 0) {
-				$nb_random = rand(0,$max-1);
+			if ($this->is_nb_in_array($nb_random,$used_nb)) {
+				while ($this->is_nb_in_array($nb_random,$used_nb) && $nb_random < 0) {
+					$nb_random = rand(0,$max-1);
+				}
 			}
 			$used_nb[$k] = $nb_random;
-			$this->addTrack($musics[$nb_random]->id, $q->id);
+		}
+
+		foreach ($used_nb as $n => $val) {
+			$this->addTrack($musics[$val]->id, $q->id);
 		}
 	}
 }

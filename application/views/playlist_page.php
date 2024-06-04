@@ -52,7 +52,7 @@
 		<nav style="display:inline-block;">Nombres de musiques : <b><?=$count?></b></nav>
 		<table class="play_list">
 			<tr>
-				<th style="display:flex;align-items: center;justify-content: center;"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' width="50%" /></th>
+				<th class="column_head_image"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' /></th>
 				<th>Titre</th>
 				<th>Album</th>
 				<th>Temps</th>
