@@ -49,6 +49,8 @@ class Model_music extends CI_Model {
 			$sorted = 'song.name';
 		}elseif ($sorted == 'albums') {
 			$sorted = 'album.name';
+		}elseif ($sorted == 'duree') {
+			$sorted = 'SUBSTR(SEC_TO_TIME(duration),4)';
 		}
 
 		$query = $this->db->query(

@@ -56,10 +56,11 @@
 		<nav style="display:inline-block;">Nombres de musiques : <b><?=$count?></b></nav>
 		<table class="play_list">
 			<tr>
-				<th class="column_head_image"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' /></th>
+				<th class="column_head_image"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' alt="IMG"/></th>
 				<th>Titre</th>
 				<th>Album</th>
-				<th>Temps</th>
+				<th>Durée</th>
+				<th style="color:rgba(0,0,0,0);">HEIN</thsty>
 			</tr>
 			<?php
 				foreach($songs as $song){

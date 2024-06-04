@@ -37,6 +37,7 @@
 		?>
 		<li><?=anchor("artistes/view/$id/?sorted=titre&by=$by#tracks",'Titre',['role'=>($sorted=='titre'?'button':'')]);?></li>
 		<li><?=anchor("artistes/view/$id/?sorted=album&by=$by#tracks",'Album',['role'=>($sorted=='album'?'button':'')]);?></li>
+		<li><?=anchor("artistes/view/$id/?sorted=duree&by=$by#tracks",'Durée',['role'=>($sorted=='duree'?'button':'')]);?></li>
 		<li><?=anchor("artistes/view/$id/?sorted=$sorted&by=$bynext#tracks", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
 	</ul>
 </nav>
@@ -45,7 +46,7 @@
 		<th class="column_head_image"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' /></th>
 		<th>Titre</th>
 		<th>Album</th>
-		<th>Temps</th>
+		<th>Durée</th>
 	</tr>
 	<?php
 		foreach($musics as $music){

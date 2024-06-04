@@ -22,7 +22,7 @@
 			<tr>
 				<th class="column_head_image"><img src='<?= $CI->config->base_url("assets/image-gallery.png")?>' /></th>
 				<th>Titre</th>
-				<th>Temps</th>
+				<th>Durée</th>
 			</tr>
 			<?php
 				foreach($musics as $music){

@@ -63,7 +63,7 @@
 		<th>Album</th>
 		<th>Artiste</th>
 		<th>Genre</th>
-		<th>Temps</th>
+		<th>Durée</th>
 	</tr>
 	<?php
 		foreach($musics as $music){
