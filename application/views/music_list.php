@@ -52,8 +52,8 @@
 <nav class="paginaire">
 	<h6>Page <?=($page+1)." / ".round($pagesmax+1)?></h6>
 	<div class="page">
-		<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search",'Prev',['role'=>'button']);?>
-		<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search",'Next',['role'=>'button']);?>
+		<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search","<img src='{$CI->config->base_url("assets/previous.png")}' alt='$bynext' width='30px' />",['role'=>'button']);?>
+		<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search","<img src='{$CI->config->base_url("assets/next.png")}' alt='$bynext' width='30px' />",['role'=>'button']);?>
 	</div>
 </nav>
 <table class="play_list">
@@ -79,6 +79,6 @@
 </table>
 
 <div class="page">
-	<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search",'Prev',['role'=>'button']);?>
-	<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search",'Next',['role'=>'button']);?>
+	<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search","<img src='{$CI->config->base_url("assets/previous.png")}' alt='$bynext' width='30px' />",['role'=>'button']);?>
+	<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search","<img src='{$CI->config->base_url("assets/next.png")}' alt='$bynext' width='30px' />",['role'=>'button']);?>
 </div>
