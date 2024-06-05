@@ -1,18 +1,9 @@
 <?php
 	$CI =& get_instance();
 
-	$pagenext = $page;
-	$pageprev = $page;
-	if ($page < $pagesmax-1){
-		$pagenext = $page+1;
-	}
-	if ($page != 0) {
-		$pageprev = $page-1;
-	}
 ?>
 <h5>Musique list</h5>
 <nav>
-	<!-- Ajout d'un formulaire de recherche pour les playlists -->
 	<?php
         $message_recherche = 'par nom';
         if ($sorted == "album") {
@@ -52,8 +43,7 @@
 <nav class="paginaire">
 	<h6>Page <?=($page+1)." / ".round($pagesmax+1)?></h6>
 	<div class="page">
-		<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search","<img src='{$CI->config->base_url("assets/previous.png")}' alt='$bynext' width='30px' />",['role'=>'button']);?>
-		<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search","<img src='{$CI->config->base_url("assets/next.png")}' alt='$bynext' width='30px' />",['role'=>'button']);?>
+		<?php echo $this->pagination->create_links();?>
 	</div>
 </nav>
 <table class="play_list">
@@ -79,6 +69,5 @@
 </table>
 
 <div class="page">
-	<?=anchor("musique/index/$pageprev?sorted=$sorted&by=$by&search=$search","<img src='{$CI->config->base_url("assets/previous.png")}' alt='$bynext' width='30px' />",['role'=>'button']);?>
-	<?=anchor("musique/index/$pagenext?sorted=$sorted&by=$by&search=$search","<img src='{$CI->config->base_url("assets/next.png")}' alt='$bynext' width='30px' />",['role'=>'button']);?>
+	<?php echo $this->pagination->create_links();?>
 </div>

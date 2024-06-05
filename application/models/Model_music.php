@@ -167,8 +167,13 @@ class Model_music extends CI_Model {
 		)->result();
 
 		foreach ($query as $q) {
-			return $q->nb/100;
+			return $q->nb;
 		}
+	}
+	public function CountPages($sorted = 'nom', $by = 'asc', $search = ''){
+
+		$nb = $this->CountMusics($sorted, $by, $search);
+		return $nb/100;
 	}
 
 	public function nb_tracks_filtered($genres,$artists){

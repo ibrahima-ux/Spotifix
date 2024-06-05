@@ -20,7 +20,6 @@
     </form>
     <ul style="align-items: normal; float: left;">
         <?php
-            $CI =& get_instance();
             if ($by == 'asc') {
                 $bynext = "desc";
                 $arrow = "up.png";
