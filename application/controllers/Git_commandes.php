@@ -15,13 +15,13 @@ class Git_commandes extends CI_Controller {
 	}
 
 	public function push(){
-		shell_exec("git commit -m 'update_with_php'");
-		shell_exec("git push");
-		redirect("git/");
+		//shell_exec("git commit -m 'update_with_php'");
+		//shell_exec("git push");
+		$this->index();
 	}
 
 	public function pull(){
-		shell_exec("git pull");
-		redirect("git/");
+		//shell_exec("git pull");
+		$this->index();
 	}
 }
