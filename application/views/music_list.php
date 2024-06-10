@@ -16,7 +16,7 @@
             $message_recherche = 'par durée';
         }
     ?>
-    <form action="" method="get" class='recherche'>
+    <form action="0" method="get" class='recherche'>
         <input type="text" name="search" placeholder="<?=$message_recherche?>">
 		<input type="hidden" name="sorted" value="<?=$sorted?>">
 		<input type="hidden" name="by" value="<?=$by?>">
@@ -31,13 +31,14 @@
 				$bynext = "asc";
 				$arrow = "down.png";
 			}
+			$page2 = $page+1;
 		?>
-		<li><?=anchor("musique/?sorted=nom&by=$by",'Titre',['role'=>($sorted=='nom'?'button':'')]);?></li>
-		<li><?=anchor("musique/?sorted=album&by=$by",'Album',['role'=>($sorted=='album'?'button':'')]);?></li>
-		<li><?=anchor("musique/?sorted=artistes&by=$by",'Artistes',['role'=>($sorted=='artistes'?'button':'')]);?></li>
-		<li><?=anchor("musique/?sorted=genre&by=$by",'Genre',['role'=>($sorted=='genre'?'button':'')]);?></li>
-		<li><?=anchor("musique/?sorted=duree&by=$by",'Duree',['role'=>($sorted=='duree'?'button':'')]);?></li>
-		<li><?=anchor("musique/?sorted=$sorted&by=$bynext&search=$search", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
+		<li><?=anchor("musique/index/$page2?sorted=nom&by=$by",'Titre',['role'=>($sorted=='nom'?'button':'')]);?></li>
+		<li><?=anchor("musique/index/$page2?sorted=album&by=$by",'Album',['role'=>($sorted=='album'?'button':'')]);?></li>
+		<li><?=anchor("musique/index/$page2?sorted=artistes&by=$by",'Artistes',['role'=>($sorted=='artistes'?'button':'')]);?></li>
+		<li><?=anchor("musique/index/$page2?sorted=genre&by=$by",'Genre',['role'=>($sorted=='genre'?'button':'')]);?></li>
+		<li><?=anchor("musique/index/$page2?sorted=duree&by=$by",'Duree',['role'=>($sorted=='duree'?'button':'')]);?></li>
+		<li><?=anchor("musique/index/$page2?sorted=$sorted&by=$bynext&search=$search", "<img src='{$CI->config->base_url("assets/$arrow")}' alt='$bynext' width='30px' />",['role'=> 'button', 'class'=>'flipflop']);?></li>
 	</ul>
 </nav>
 <nav class="paginaire">

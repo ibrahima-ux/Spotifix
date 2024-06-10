@@ -18,7 +18,6 @@ class Musique extends CI_Controller {
 
 		$this->sorted = $this->input->get('sorted') ?? 'nom';
 		$this->by = $this->input->get('by') ?? 'asc';
-
 	}
 	public function index($page = 1){
 		$page = 0 ? 0 : $page-1;

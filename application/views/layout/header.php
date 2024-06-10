@@ -18,7 +18,7 @@
   </ul>
   <ul>
   <li><?=anchor('albums','Albums');?></li>
-  <li><?=anchor('musique','Musiques');?></li>
+  <li><?=anchor('musique/index','Musiques');?></li>
   <li><?=anchor('artistes','Artistes');?></li>
   <li><?=anchor('playlist','Playlist');?></li>
   </ul>

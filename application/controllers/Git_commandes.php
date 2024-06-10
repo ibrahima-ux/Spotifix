@@ -3,6 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	
 class Git_commandes extends CI_Controller {
 
+	/**
+	 * cette class aurait permis de gérer l'envoie et la récupération 
+	 * de modifications fait dans sur un serveur git.
+	 * 
+	 * la fonction push() : permet de récupérer son travail depuis un dépot
+	 * la fonction push() : permet d'envoyer son travail sur un dépot
+	 */
+
 	public function __construct(){
 		parent::__construct();
 		$this->load->helper('html');
