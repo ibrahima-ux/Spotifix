@@ -2,6 +2,7 @@
 <html lang="fr" class="has-navbar-fixed-top">
 	<head>
 		<meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href=<?=base_url("assets/spotifix_logo.png")?>>
 		<title>Spotifix</title>
     <?=link_tag('assets/style.css')?>
     <link
@@ -13,13 +14,15 @@
 	<body>
 		<main class='container'>
 			<nav>
-  <ul>
-    <li><h2><strong><?=anchor("albums", "Spotifix",['class'=>'no_a_style, title'])?></strong></h2></li>
-  </ul>
-  <ul>
-  <li><?=anchor('albums','Albums');?></li>
-  <li><?=anchor('musique/index','Musiques');?></li>
-  <li><?=anchor('artistes','Artistes');?></li>
-  <li><?=anchor('playlist','Playlist');?></li>
-  </ul>
-</nav>
+        <ul>
+          <li>
+            <?=anchor("albums", "<img src='".base_url("assets/spotifix_logo.png")."' alt='' width='10%'><h2><strong>Spotifix</strong></h2>",['class'=>'title'])?>
+          </lidisplay>
+        </ul>
+        <ul>
+          <li><?=anchor('albums','Albums');?></li>
+          <li><?=anchor('musique/index','Musiques');?></li>
+          <li><?=anchor('artistes','Artistes');?></li>
+          <li><?=anchor('playlist','Playlist');?></li>
+        </ul>
+      </nav>
