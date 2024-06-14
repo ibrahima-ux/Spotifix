@@ -1,4 +1,4 @@
-</main>
+    </main>
     <footer>
         <article>
             <nav style="flex-wrap: wrap; align-items:center;">
