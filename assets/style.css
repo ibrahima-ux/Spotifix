@@ -171,3 +171,7 @@ footer>article>* {
 .paginaire>h6{
 	margin: 0;
 }
+
+footer p{
+	margin: 0;
+}
